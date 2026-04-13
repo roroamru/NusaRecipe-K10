@@ -1,24 +1,24 @@
-<nav class="navbar navbar-light bg-light shadow-sm px-4">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
+<nav class="navbar bg-light shadow-sm px-4">
+    <div class="container d-flex justify-content-between align-items-center">
 
-        <!-- LOGO + NAMA -->
+        <!-- LOGO -->
         <div class="d-flex align-items-center gap-2">
-            <img src="{{ asset('images/logo.png') }}" width="45">
-            <h4 class="fw-bold m-0 text-warning">NusaRecipe</h4>
+            <img src="{{ asset('images/logo.png') }}" style="width:45px;">
+            <h4 class="fw-bold text-warning m-0">NusaRecipe</h4>
         </div>
 
         <!-- SEARCH -->
-        <div class="d-flex align-items-center position-relative">
+        <div class="position-relative">
             <input type="text"
-                   class="form-control shadow-sm"
+                   class="form-control"
                    placeholder="Cari resep masakan"
-                   style="width:300px; border-radius:25px; padding-left:20px;">
+                   style="width:280px; border-radius:25px; padding-right:40px;">
 
             <i class="bi bi-search position-absolute"
-               style="right:15px;"></i>
+               style="right:15px; top:50%; transform:translateY(-50%);"></i>
         </div>
 
-        <!-- MENU KANAN -->
+        <!-- MENU -->
         <div class="d-flex align-items-center gap-4">
 
             <div class="text-center">
