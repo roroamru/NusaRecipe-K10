@@ -9,4 +9,4 @@
 Software Development
 
 ## Deskripsi
-Project kolaborasi membuat aplikasi web resep Nusantara (NusaRecipe).
+Aplikasi NusaRecipe merupakan aplikasi berbasis web/mobile yang digunakan untuk mencari, melihat, dan merekomendasikan resep makanan khas Indonesia. Aplikasi ini dilengkapi dengan fitur pencarian, kategori bertingkat, serta sistem favorit untuk pengguna.
