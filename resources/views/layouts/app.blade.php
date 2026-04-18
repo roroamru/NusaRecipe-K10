@@ -116,6 +116,7 @@
             background: #fff;
             border-top: 2px solid orange;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            margin-top: 80px;
         }
 
         .footer p {
