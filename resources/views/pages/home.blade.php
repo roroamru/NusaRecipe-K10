@@ -19,7 +19,7 @@
 
         <!-- KANAN (GAMBAR) -->
         <div class="col-md-5 text-end">
-            <img src="{{ asset('images/nasi-kuning.jpg') }}" class="hero-img">
+            <img src="{{ asset('image/nasi-kuning.jpg') }}" class="hero-img">
         </div>
 
     </div>
@@ -56,7 +56,7 @@ $reseps = [
         <div class="card-resep">
 
             <!-- GAMBAR -->
-            <img src="{{ asset('images/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
+            <img src="{{ asset('image/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
 
             <!-- NAMA -->
             <div class="resep-info">
