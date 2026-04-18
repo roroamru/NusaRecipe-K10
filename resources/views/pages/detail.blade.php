@@ -2,29 +2,45 @@
 
 @section('content')
 
-<div class="card p-4">
+<a href="/" class="btn btn-warning mb-3"> ← kembali</a>
 
-    <h2 class="fw-bold mb-3">{{ $resep['nama'] }}</h2>
+<div class="detail-container p-4">
 
-    <img src="{{ asset('image/' . $resep['gambar']) }}" 
-        class="detail-img">
+    <div class="row">
 
-    <h5 class="mt-4">Deskripsi</h5>
-    <p>Resep {{ $resep['nama'] }} yang lezat dan mudah dibuat di rumah.</p>
+        <!-- GAMBAR -->
+        <div class="col-md-5">
+            <img src="{{ asset('image/' . $resep['gambar']) }}" class="detail-img">
+        </div>
 
-    <h5 class="mt-3">Bahan:</h5>
-    <ul>
-        <li>Bahan 1</li>
-        <li>Bahan 2</li>
-        <li>Bahan 3</li>
-    </ul>
+        <!-- INFO -->
+        <div class="col-md-7">
 
-    <h5 class="mt-3">Cara Memasak:</h5>
-    <ol>
-        <li>Langkah pertama</li>
-        <li>Langkah kedua</li>
-        <li>Langkah ketiga</li>
-    </ol>
+            <h2 class="fw-bold mb-3">{{ $resep['nama'] }}</h2>
+
+            <p class="text-muted">
+                Resep {{ $resep['nama'] }} yang lezat dan mudah dibuat di rumah.
+            </p>
+
+            <!-- BAHAN -->
+            <h5 class="mt-4">Bahan:</h5>
+            <ul>
+                @foreach($resep['bahan'] ?? ['Bahan 1','Bahan 2'] as $b)
+                    <li>{{ $b }}</li>
+                @endforeach
+            </ul>
+
+            <!-- LANGKAH -->
+            <h5 class="mt-3">Cara Memasak:</h5>
+            <ol>
+                @foreach($resep['langkah'] ?? ['Langkah 1','Langkah 2'] as $l)
+                    <li>{{ $l }}</li>
+                @endforeach
+            </ol>
+
+        </div>
+
+    </div>
 
 </div>
 

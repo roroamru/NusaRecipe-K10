@@ -20,6 +20,11 @@
         }
 
         /* NAVBAR */
+        .navbar {
+            background: #f5e7b4;
+            border-bottom: 2px solid orange;   
+        }
+
         .navbar i {
             cursor: pointer;
         }
@@ -117,6 +122,19 @@
 
         .card-resep:hover {
             transform: scale(1.05);
+        }
+
+        .detail-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .detail-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
         .footer {
