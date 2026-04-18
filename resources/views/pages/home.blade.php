@@ -27,10 +27,12 @@
 
 <!-- KATEGORI -->
 <h5>Kategori Resep</h5>
-<div class="mb-4">
-    <button class="kategori-btn">Makanan →</button>
-    <button class="kategori-btn">Minuman →</button>
-    <button class="kategori-btn">Cemilan →</button>
+<div class="mb-4 d-flex gap-2 flex-wrap">
+
+    <button class="kategori-btn active">Makanan</button>
+    <button class="kategori-btn">Minuman</button>
+    <button class="kategori-btn">Cemilan</button>
+
 </div>
 
 <!-- REKOMENDASI -->

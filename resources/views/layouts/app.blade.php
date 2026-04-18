@@ -7,9 +7,10 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Font (biar mirip desain kamu) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
@@ -18,6 +19,7 @@
             background: #f5f5f5;
         }
 
+        /* NAVBAR */
         .navbar i {
             cursor: pointer;
         }
@@ -26,6 +28,7 @@
             color: orange;
         }
 
+        /* HERO */
         .hero {
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             background: #f3d88b;
@@ -34,13 +37,16 @@
         }
 
         .hero-title {
+            font-family: 'Merriweather', serif;
             font-size: 32px;
-            font-weight: bold;
+            font-weight: 700;
+            line-height: 1.4;
         }
 
         .hero-text {
             color: #555;
             margin-top: 10px;
+            font-size: 14px;
         }
 
         .hero-img {
@@ -48,6 +54,7 @@
             border-radius: 15px;
         }
 
+        /* KATEGORI BUTTON */
         .kategori-btn {
             background: orange;
             color: black;
@@ -56,8 +63,15 @@
             font-weight: bold;
             border: 2px solid black;
             margin-right: 10px;
+            transition: 0.3s;
         }
 
+        .kategori-btn:hover {
+            background: black;
+            color: orange;
+        }
+
+        /* CARD RESEP */
         .card-resep {
             border: 2px solid orange;
             border-radius: 10px;
@@ -66,6 +80,8 @@
             align-items: center;
             justify-content: space-between;
             height: 120px;
+            background: white;
+            transition: 0.3s;
         }
 
         .card-resep img {
@@ -93,8 +109,7 @@
         }
 
         .card-resep:hover {
-            transform: scale(1.03);
-            transition: 0.3s;
+            transform: scale(1.05);
         }
 
     </style>
