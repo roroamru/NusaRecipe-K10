@@ -112,6 +112,16 @@
             transform: scale(1.05);
         }
 
+        .footer {
+            background: #fff;
+            border-top: 2px solid orange;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .footer p {
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
@@ -121,6 +131,8 @@
     <div class="container mt-4">
         @yield('content')
     </div>
+
+    @include('layouts.footer')
 
 </body>
 </html>
