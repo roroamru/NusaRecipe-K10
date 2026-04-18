@@ -50,7 +50,7 @@ $reseps = [
 <div class="row">
 
     @foreach($reseps as $index => $resep)
-    <div class="col-md-3 mb-3">
+    <div class="col-12 col-sm-6 col-lg-3 mb-3">
         <a href="{{ route('detail', $index) }}" style="text-decoration:none;">
             <div class="card-resep">
 

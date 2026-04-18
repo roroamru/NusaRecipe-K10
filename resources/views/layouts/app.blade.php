@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>NusaRecipe</title>
 
     <!-- Bootstrap -->
@@ -146,6 +150,47 @@
 
         .footer p {
             font-size: 14px;
+        }
+
+        /* RESPONSIVE MOBILE (TAMBAHAN) */
+        @media (max-width: 768px) {
+
+            /* HERO */
+            .hero {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-img {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            /* NAVBAR */
+            .navbar .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar input {
+                width: 100% !important;
+            }
+
+            /* CARD */
+            .card-resep {
+                height: auto;
+                padding: 8px;
+            }
+
+            /* DETAIL */
+            .detail-img {
+                height: 200px;
+            }
+
         }
 
     </style>
