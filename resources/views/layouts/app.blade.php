@@ -108,6 +108,13 @@
             cursor: pointer;
         }
 
+        .detail-img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain; 
+            border-radius: 15px;
+        }
+
         .card-resep:hover {
             transform: scale(1.05);
         }

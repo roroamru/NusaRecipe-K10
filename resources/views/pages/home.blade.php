@@ -6,7 +6,6 @@
 <div class="hero mb-4">
     <div class="row align-items-center">
 
-        <!-- KIRI (TEXT) -->
         <div class="col-md-7">
             <h2 class="hero-title">
                 Temukan resep masakan Nusantara yang mudah, praktis dan lezat.
@@ -17,7 +16,6 @@
             </p>
         </div>
 
-        <!-- KANAN (GAMBAR) -->
         <div class="col-md-5 text-end">
             <img src="{{ asset('image/nasi-kuning.jpg') }}" class="hero-img">
         </div>
@@ -28,11 +26,9 @@
 <!-- KATEGORI -->
 <h5>Kategori Resep</h5>
 <div class="mb-4 d-flex gap-2 flex-wrap">
-
     <button class="kategori-btn active">Makanan</button>
     <button class="kategori-btn">Minuman</button>
     <button class="kategori-btn">Cemilan</button>
-
 </div>
 
 <!-- REKOMENDASI -->
@@ -53,22 +49,21 @@ $reseps = [
 
 <div class="row">
 
-    @foreach($reseps as $resep)
+    @foreach($reseps as $index => $resep)
     <div class="col-md-3 mb-3">
-        <div class="card-resep">
+        <a href="{{ route('detail', $index) }}" style="text-decoration:none;">
+            <div class="card-resep">
 
-            <!-- GAMBAR -->
-            <img src="{{ asset('image/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
+                <img src="{{ asset('image/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
 
-            <!-- NAMA -->
-            <div class="resep-info">
-                <div class="resep-title">{{ $resep['nama'] }}</div>
+                <div class="resep-info">
+                    <div class="resep-title">{{ $resep['nama'] }}</div>
+                </div>
+
+                <i class="bi bi-bookmark bookmark"></i>
+
             </div>
-
-            <!-- ICON -->
-            <i class="bi bi-bookmark bookmark"></i>
-
-        </div>
+        </a>
     </div>
     @endforeach
 
