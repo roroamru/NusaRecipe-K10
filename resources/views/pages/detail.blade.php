@@ -6,7 +6,8 @@
 
 <div class="detail-container p-4">
 
-    <div class="row">
+    <!-- BAGIAN ATAS -->
+    <div class="row mb-4">
 
         <!-- GAMBAR -->
         <div class="col-md-5">
@@ -22,25 +23,30 @@
                 Resep {{ $resep['nama'] }} yang lezat dan mudah dibuat di rumah.
             </p>
 
-            <!-- BAHAN -->
-            <h5 class="mt-4">Bahan:</h5>
-            <ul>
-                @foreach($resep['bahan'] ?? ['Bahan 1','Bahan 2'] as $b)
-                    <li>{{ $b }}</li>
-                @endforeach
-            </ul>
-
-            <!-- LANGKAH -->
-            <h5 class="mt-3">Cara Memasak:</h5>
-            <ol>
-                @foreach($resep['langkah'] ?? ['Langkah 1','Langkah 2'] as $l)
-                    <li>{{ $l }}</li>
-                @endforeach
-            </ol>
+            <p><b>Waktu Masak:</b> 30 menit</p>
+            <p><b>Porsi:</b> 2-3 orang</p>
 
         </div>
 
     </div>
+
+    <!-- BAGIAN BAWAH -->
+    
+    <!-- BAHAN -->
+    <h4 class="mt-4">Bahan</h4>
+    <ul>
+        @foreach($resep['bahan'] ?? ['Bahan 1','Bahan 2'] as $b)
+            <li>{{ $b }}</li>
+        @endforeach
+    </ul>
+
+    <!-- LANGKAH -->
+    <h4 class="mt-4">Cara Memasak</h4>
+    <ol>
+        @foreach($resep['langkah'] ?? ['Langkah 1','Langkah 2'] as $l)
+            <li>{{ $l }}</li>
+        @endforeach
+    </ol>
 
 </div>
 
