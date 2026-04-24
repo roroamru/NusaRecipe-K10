@@ -3,70 +3,79 @@
 @section('content')
 
 <!-- HERO -->
-<div class="hero mb-4">
-    <div class="row align-items-center">
+    <div class="hero mb-4">
+        <div class="row align-items-center">
 
-        <div class="col-md-7">
-            <h2 class="hero-title">
-                Temukan resep masakan Nusantara yang mudah, praktis dan lezat.
-            </h2>
+            <div class="col-md-7">
+                <h2 class="hero-title">
+                    Temukan resep masakan Nusantara yang mudah, praktis dan lezat.
+                </h2>
 
-            <p class="hero-text">
-                Jelajahi berbagai resep khas Indonesia dan masak dengan percaya diri dirumahmu.
-            </p>
+                <p class="hero-text">
+                    Jelajahi berbagai resep khas Indonesia dan masak dengan percaya diri dirumahmu.
+                </p>
+            </div>
+
+            <div class="col-md-5 text-end">
+                <img src="{{ asset('image/nasi-kuning.jpg') }}" class="hero-img">
+            </div>
+
         </div>
-
-        <div class="col-md-5 text-end">
-            <img src="{{ asset('image/nasi-kuning.jpg') }}" class="hero-img">
-        </div>
-
     </div>
-</div>
 
 <!-- KATEGORI -->
-<h5>Kategori Resep</h5>
-<div class="mb-4 d-flex gap-2 flex-wrap">
-    <button class="kategori-btn active">Makanan</button>
-    <button class="kategori-btn">Minuman</button>
-    <button class="kategori-btn">Cemilan</button>
-</div>
+    <h5>Kategori Resep</h5>
+    <div class="mb-4 d-flex gap-2 flex-wrap">
+        <button class="kategori-btn active">Makanan</button>
+        <button class="kategori-btn">Minuman</button>
+        <button class="kategori-btn">Cemilan</button>
+    </div>
 
 <!-- REKOMENDASI -->
-<h5>Rekomendasi Resep</h5>
+    <h5>Rekomendasi Resep</h5>
 
-@php
-$reseps = [
-    ["nama" => "Ayam Goreng Krispi", "gambar" => "Ayam-Goreng-Krispi.jpg"],
-    ["nama" => "Es Buah", "gambar" => "Es-Buah.jpg"],
-    ["nama" => "Gethuk Lindri", "gambar" => "Gethuk-Lindri.jpg"],
-    ["nama" => "Klepon", "gambar" => "Klepon.jpg"],
-    ["nama" => "Kolak Labu dan Pisang", "gambar" => "Kolak-Labu-dan-Pisang.jpg"],
-    ["nama" => "Mie Goreng Jawa", "gambar" => "Mie-Goreng-Jawa.jpg"],
-    ["nama" => "Nasi Goreng", "gambar" => "Nasi-Goreng.jpg"],
-    ["nama" => "Sop Ala Rumahan", "gambar" => "Sop-Ala-Rumahan.jpg"]
-];
-@endphp
+    <div class="row">
 
-<div class="row">
+        @foreach($reseps as $index => $resep)
+        <div class="col-12 col-sm-6 col-lg-3 mb-3 resep-item"
+            data-nama="{{ strtolower($resep['nama']) }}">
 
-    @foreach($reseps as $index => $resep)
-    <div class="col-12 col-sm-6 col-lg-3 mb-3">
-        <a href="{{ route('detail', $index) }}" style="text-decoration:none;">
-            <div class="card-resep">
+            <a href="{{ route('detail', $index) }}" style="text-decoration:none;">
+                <div class="card-resep">
 
-                <img src="{{ asset('image/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
+                    <img src="{{ asset('image/' . $resep['gambar']) }}" alt="{{ $resep['nama'] }}">
 
-                <div class="resep-info">
-                    <div class="resep-title">{{ $resep['nama'] }}</div>
+                    <div class="resep-info">
+                        <div class="resep-title">{{ $resep['nama'] }}</div>
+                    </div>
+
+                    <i class="bi bi-bookmark bookmark"
+                    onclick="toggleFavorite('{{ $resep['nama'] }}', this)"></i>
+
                 </div>
+            </a>
 
-                <i class="bi bi-bookmark bookmark"></i>
+        </div>
+        @endforeach
 
-            </div>
-        </a>
     </div>
-    @endforeach
 
-</div>
+<!-- SCRIPT SEARCH -->
+    <script>
+    function searchResep() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let items = document.querySelectorAll(".resep-item");
 
-@endsection
+        items.forEach(item => {
+            let nama = item.getAttribute("data-nama");
+
+            if (nama.includes(input)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+    </script>
+
+    @endsection
