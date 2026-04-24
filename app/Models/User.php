@@ -6,27 +6,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Beritahu Laravel kalau primary key-nya adalah id_user
+     * sesuai dengan desain ERD NusaRecipe.
+     */
+    protected $primaryKey = 'id_user';
+
+    /**
+     * Atribut yang dapat diisi secara massal.
+     * Nama kolom disesuaikan dengan bahasa Indonesia (nama, email, role).
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
+        'role',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Atribut yang harus disembunyikan saat data dikirim (untuk keamanan).
      */
     protected $hidden = [
         'password',
@@ -34,12 +38,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * Pengaturan tipe data otomatis (casting).
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
+     * Relasi: Satu User dapat memiliki banyak resep favorit.
+     * Ini menghubungkan id_user ke kolom user_id di tabel favorit.
+     */
+    public function favorit()
+    {
+        return $this->hasMany(Favorit::class, 'user_id', 'id_user');
+    }
 }
