@@ -34,19 +34,6 @@
 <!-- REKOMENDASI -->
 <h5>Rekomendasi Resep</h5>
 
-@php
-$reseps = [
-    ["nama" => "Ayam Goreng Krispi", "gambar" => "Ayam-Goreng-Krispi.jpg"],
-    ["nama" => "Es Buah", "gambar" => "Es-Buah.jpg"],
-    ["nama" => "Gethuk Lindri", "gambar" => "Gethuk-Lindri.jpg"],
-    ["nama" => "Klepon", "gambar" => "Klepon.jpg"],
-    ["nama" => "Kolak Labu dan Pisang", "gambar" => "Kolak-Labu-dan-Pisang.jpg"],
-    ["nama" => "Mie Goreng Jawa", "gambar" => "Mie-Goreng-Jawa.jpg"],
-    ["nama" => "Nasi Goreng", "gambar" => "Nasi-Goreng.jpg"],
-    ["nama" => "Sop Ala Rumahan", "gambar" => "Sop-Ala-Rumahan.jpg"]
-];
-@endphp
-
 <div class="row">
 
     @foreach($reseps as $index => $resep)
@@ -60,7 +47,8 @@ $reseps = [
                     <div class="resep-title">{{ $resep['nama'] }}</div>
                 </div>
 
-                <i class="bi bi-bookmark bookmark"></i>
+                <i class="bi bi-bookmark bookmark"
+                    onclick="toggleFavorite('{{ $resep['nama'] }}', this)"></i>
 
             </div>
         </a>

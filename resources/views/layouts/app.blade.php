@@ -117,6 +117,15 @@
             cursor: pointer;
         }
 
+        .bi-bookmark-fill {
+            color: orange;
+        }
+
+        .bookmark:hover {
+            transform: scale(1.2);
+            transition: 0.2s;
+        }
+
         .detail-img {
             width: 100%;
             max-height: 350px;
@@ -206,4 +215,40 @@
     @include('layouts.footer')
 
 </body>
+<script>
+    function getFavorites() {
+        return JSON.parse(localStorage.getItem('favorites')) || [];
+    }
+
+    function toggleFavorite(nama, el) {
+        let favs = getFavorites();
+
+        if (favs.includes(nama)) {
+            favs = favs.filter(f => f !== nama);
+            el.classList.remove('bi-bookmark-fill');
+            el.classList.add('bi-bookmark');
+        } else {
+            favs.push(nama);
+            el.classList.remove('bi-bookmark');
+            el.classList.add('bi-bookmark-fill');
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(favs));
+    }
+
+    function loadFavorites() {
+        let favs = getFavorites();
+
+        document.querySelectorAll('.bookmark').forEach(el => {
+            let nama = el.getAttribute('onclick')?.match(/'(.*?)'/)?.[1];
+
+            if (favs.includes(nama)) {
+                el.classList.remove('bi-bookmark');
+                el.classList.add('bi-bookmark-fill');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadFavorites);
+</script>
 </html>
