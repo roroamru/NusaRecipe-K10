@@ -26,13 +26,16 @@
         <!-- MENU -->
         <div class="d-flex align-items-center gap-4">
 
-            <div class="text-center">
-                <i class="bi bi-bookmark fs-4 text-warning"></i>
-                <div style="font-size:12px;">Favorit</div>
-            </div>
+            <!-- FAVORIT -->
+            <a href="/favorit" style="text-decoration:none;">
+                <div class="text-center">
+                    <i class="bi bi-bookmark fs-4 text-warning"></i>
+                    <div style="font-size:12px;">Favorit</div>
+                </div>
+            </a>
 
+            <!-- USER -->
             <i class="bi bi-person-circle fs-3 text-warning"></i>
-
         </div>
 
     </div>

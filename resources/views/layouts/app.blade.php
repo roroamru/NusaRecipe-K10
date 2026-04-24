@@ -26,7 +26,7 @@
         /* NAVBAR */
         .navbar {
             background: #f5e7b4;
-            border-bottom: 2px solid orange;   
+            border-bottom: 2px solid orange;
         }
 
         .navbar i {
@@ -93,6 +93,10 @@
             transition: 0.3s;
         }
 
+        .card-resep:hover {
+            transform: scale(1.05);
+        }
+
         .card-resep img {
             width: 90px;
             height: 90px;
@@ -111,32 +115,23 @@
             font-size: 14px;
         }
 
+        /* FAVORIT ICON */
         .bookmark {
             font-size: 20px;
             color: orange;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .bookmark:hover {
+            transform: scale(1.2);
         }
 
         .bi-bookmark-fill {
             color: orange;
         }
 
-        .bookmark:hover {
-            transform: scale(1.2);
-            transition: 0.2s;
-        }
-
-        .detail-img {
-            width: 100%;
-            max-height: 350px;
-            object-fit: contain; 
-            border-radius: 15px;
-        }
-
-        .card-resep:hover {
-            transform: scale(1.05);
-        }
-
+        /* DETAIL */
         .detail-container {
             background: white;
             border-radius: 15px;
@@ -150,6 +145,7 @@
             border-radius: 15px;
         }
 
+        /* FOOTER */
         .footer {
             background: #fff;
             border-top: 2px solid orange;
@@ -161,10 +157,9 @@
             font-size: 14px;
         }
 
-        /* RESPONSIVE MOBILE (TAMBAHAN) */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
 
-            /* HERO */
             .hero {
                 padding: 20px;
                 text-align: center;
@@ -179,7 +174,6 @@
                 margin-top: 15px;
             }
 
-            /* NAVBAR */
             .navbar .container {
                 flex-direction: column;
                 gap: 10px;
@@ -189,21 +183,19 @@
                 width: 100% !important;
             }
 
-            /* CARD */
             .card-resep {
                 height: auto;
                 padding: 8px;
             }
 
-            /* DETAIL */
             .detail-img {
                 height: 200px;
             }
-
         }
 
     </style>
 </head>
+
 <body>
 
     @include('layouts.navbar')
@@ -214,41 +206,46 @@
 
     @include('layouts.footer')
 
-</body>
-<script>
-    function getFavorites() {
-        return JSON.parse(localStorage.getItem('favorites')) || [];
-    }
-
-    function toggleFavorite(nama, el) {
-        let favs = getFavorites();
-
-        if (favs.includes(nama)) {
-            favs = favs.filter(f => f !== nama);
-            el.classList.remove('bi-bookmark-fill');
-            el.classList.add('bi-bookmark');
-        } else {
-            favs.push(nama);
-            el.classList.remove('bi-bookmark');
-            el.classList.add('bi-bookmark-fill');
+    <!-- 🔥 SCRIPT FAVORIT (SUDAH FIX) -->
+    <script>
+        function getFavorites() {
+            return JSON.parse(localStorage.getItem('favorites')) || [];
         }
 
-        localStorage.setItem('favorites', JSON.stringify(favs));
-    }
+        function toggleFavorite(nama, el, e) {
+            e.stopPropagation();   // ❗ stop klik ke card
+            e.preventDefault();    // ❗ stop buka link
 
-    function loadFavorites() {
-        let favs = getFavorites();
-
-        document.querySelectorAll('.bookmark').forEach(el => {
-            let nama = el.getAttribute('onclick')?.match(/'(.*?)'/)?.[1];
+            let favs = JSON.parse(localStorage.getItem('favorites')) || [];
 
             if (favs.includes(nama)) {
+                favs = favs.filter(f => f !== nama);
+                el.classList.remove('bi-bookmark-fill');
+                el.classList.add('bi-bookmark');
+            } else {
+                favs.push(nama);
                 el.classList.remove('bi-bookmark');
                 el.classList.add('bi-bookmark-fill');
             }
-        });
-    }
 
-    document.addEventListener('DOMContentLoaded', loadFavorites);
-</script>
+            localStorage.setItem('favorites', JSON.stringify(favs));
+        }
+
+        function loadFavorites() {
+            let favs = getFavorites();
+
+            document.querySelectorAll('.bookmark').forEach(el => {
+                let nama = el.getAttribute('data-nama'); // 🔥 FIX PENTING
+
+                if (favs.includes(nama)) {
+                    el.classList.remove('bi-bookmark');
+                    el.classList.add('bi-bookmark-fill');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadFavorites);
+    </script>
+
+</body>
 </html>

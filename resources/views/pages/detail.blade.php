@@ -20,7 +20,9 @@
                 <h2 class="fw-bold m-0">{{ $resep['nama'] }}</h2>
 
                 <i class="bi bi-bookmark bookmark fs-3"
-                   onclick="toggleFavorite('{{ $resep['nama'] }}', this)"></i>
+                   data-nama="{{ $resep['nama'] }}"
+                   onclick="toggleFavorite('{{ $resep['nama'] }}', this)">
+                </i>
 
             </div>
 
@@ -28,8 +30,8 @@
                 {{ $resep['deskripsi'] ?? '-' }}
             </p>
 
-            <p>⏱️ <b>{{ $resep['waktu'] ?? '-' }}</b></p>
-            <p>🍽️ <b>{{ $resep['porsi'] ?? '-' }}</b></p>
+            <p>⏱️ <b>{{ $resep['waktu'] }}</b></p>
+            <p>🍽️ <b>{{ $resep['porsi'] }}</b></p>
 
         </div>
 
@@ -40,17 +42,11 @@
 
     @foreach($resep['bahan'] as $kategori => $items)
 
-        <h6 class="fw-bold text-warning mt-3">
-            {{ $kategori }}
-        </h6>
+        <h6 class="fw-bold text-warning mt-3">{{ $kategori }}</h6>
 
-        <ul style="padding-left:20px; margin-bottom:10px;">
+        <ul>
             @foreach($items as $item)
-                @if(!empty($item))
-                    <li style="font-size:14px; line-height:1.6;">
-                        {{ $item }}
-                    </li>
-                @endif
+                <li>{{ $item }}</li>
             @endforeach
         </ul>
 
@@ -61,9 +57,7 @@
 
     @foreach($resep['langkah'] as $i => $step)
 
-        <div style="margin-bottom:12px; display:flex; align-items:flex-start;">
-
-            <!-- NOMOR -->
+        <div style="display:flex; margin-bottom:10px;">
             <div style="
                 background:orange;
                 color:white;
@@ -71,19 +65,12 @@
                 width:28px;
                 height:28px;
                 text-align:center;
-                line-height:28px;
-                font-size:14px;
                 margin-right:10px;
-                flex-shrink:0;
             ">
                 {{ $i + 1 }}
             </div>
 
-            <!-- ISI -->
-            <div style="font-size:14px; line-height:1.6;">
-                {{ $step }}
-            </div>
-
+            <div>{{ $step }}</div>
         </div>
 
     @endforeach

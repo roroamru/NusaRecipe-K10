@@ -271,3 +271,9 @@ $reseps = [
     ]);
 
 });
+
+/* Favorite */
+
+        Route::get('/favorit', function () use ($reseps) {
+        return view('pages.favorit', compact('reseps'));
+    });
