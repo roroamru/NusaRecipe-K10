@@ -19,5 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// URL untuk mengambil daftar resep
+// URL untuk mengambil daftar resep (List)
 Route::get('/resep', [ResepController::class, 'index']);
+
+// URL untuk mengambil detail satu resep (Detail)
+Route::get('/resep/{id}', [ResepController::class, 'show']);
