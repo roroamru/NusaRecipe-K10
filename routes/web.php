@@ -260,7 +260,7 @@ $reseps = [
             str_contains(strtolower($resep['kategori']), $keyword) ||
             str_contains(strtolower($resep['deskripsi']), $keyword)
         ) {
-            $resep['id'] = $index; // 🔥 SIMPAN ID ASLI
+            $resep['id'] = $index; 
             $hasil[] = $resep;
         }
     }
@@ -271,3 +271,9 @@ $reseps = [
     ]);
 
 });
+
+/* Favorite */
+
+        Route::get('/favorit', function () use ($reseps) {
+        return view('pages.favorit', compact('reseps'));
+    });

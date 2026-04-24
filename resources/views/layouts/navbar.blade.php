@@ -7,7 +7,7 @@
             <h4 class="fw-bold text-warning m-0">NusaRecipe</h4>
         </div>
 
-        <!-- SEARCH (SUDAH DIPERBAIKI) -->
+        <!-- SEARCH -->
         <form action="/search" method="GET" class="position-relative">
 
             <input type="text"
@@ -26,13 +26,16 @@
         <!-- MENU -->
         <div class="d-flex align-items-center gap-4">
 
-            <div class="text-center">
-                <i class="bi bi-bookmark fs-4 text-warning"></i>
-                <div style="font-size:12px;">Favorit</div>
-            </div>
+            <!-- FAVORIT -->
+            <a href="/favorit" style="text-decoration:none;">
+                <div class="text-center">
+                    <i class="bi bi-bookmark fs-4 text-warning"></i>
+                    <div style="font-size:12px;">Favorit</div>
+                </div>
+            </a>
 
+            <!-- USER -->
             <i class="bi bi-person-circle fs-3 text-warning"></i>
-
         </div>
 
     </div>
