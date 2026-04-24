@@ -7,7 +7,7 @@
             <h4 class="fw-bold text-warning m-0">NusaRecipe</h4>
         </div>
 
-        <!-- SEARCH (SUDAH DIPERBAIKI) -->
+        <!-- SEARCH -->
         <form action="/search" method="GET" class="position-relative">
 
             <input type="text"

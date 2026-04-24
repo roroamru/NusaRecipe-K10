@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h3 class="mb-4">⭐ Resep Favorit</h3>
+<a href="/" class="btn btn-warning mb-3"> ← kembali</a>
 
 <div id="favoriteList" class="row"></div>
 

@@ -206,7 +206,7 @@
 
     @include('layouts.footer')
 
-    <!-- 🔥 SCRIPT FAVORIT (SUDAH FIX) -->
+    <!-- CRIPT FAVORIT  -->
     <script>
         function getFavorites() {
             return JSON.parse(localStorage.getItem('favorites')) || [];
@@ -235,7 +235,7 @@
             let favs = getFavorites();
 
             document.querySelectorAll('.bookmark').forEach(el => {
-                let nama = el.getAttribute('data-nama'); // 🔥 FIX PENTING
+                let nama = el.getAttribute('data-nama');
 
                 if (favs.includes(nama)) {
                     el.classList.remove('bi-bookmark');
