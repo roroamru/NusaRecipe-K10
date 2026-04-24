@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /* =========================
    DATA RESEP (LENGKAP)
@@ -225,23 +226,44 @@ $reseps = [
 
 ];
 
-/* =========================
-   HOME
-========================= */
-Route::get('/', function () use ($reseps) {
-    return view('pages.home', compact('reseps'));
-});
 
-/* =========================
-   DETAIL
-========================= */
-Route::get('/detail/{id}', function ($id) use ($reseps) {
-    if (!isset($reseps[$id])) {
-        abort(404);
-    }
+/* HOME */
+    Route::get('/', function () use ($reseps) {
+        return view('pages.home', compact('reseps'));
+    });
 
-    $resep = $reseps[$id];
+/* DETAIL */
+    Route::get('/detail/{id}', function ($id) use ($reseps) {
 
-    return view('pages.detail', compact('resep'));
+        if (!isset($reseps[$id])) {
+            abort(404);
+        }
 
-})->name('detail');
+        $resep = $reseps[$id];
+
+        return view('pages.detail', compact('resep'));
+
+    })->name('detail');
+
+
+/* SEARCH */
+    Route::get('/search', function (Request $request) use ($reseps) {
+
+        $keyword = strtolower(trim($request->input('q')));
+
+        $hasil = array_filter($reseps, function ($resep) use ($keyword) {
+
+            return str_contains(strtolower($resep['nama']), $keyword)
+                || str_contains(strtolower($resep['kategori']), $keyword)
+                || str_contains(strtolower($resep['deskripsi']), $keyword);
+
+        });
+
+        $hasil = array_values($hasil);
+
+        return view('pages.search', [
+            'hasil' => $hasil,
+            'keyword' => $request->q
+        ]);
+
+    });
