@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resep', function (Blueprint $table) {
-            $table->id();
+        Schema::create('favorit', function (Blueprint $table) {
+            $table->id('id_favorit'); 
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('resep_id');
             $table->timestamps();
+
+            // Relasi ke tabel User dan Resep
+            $table->foreign('user_id')->references('id_user')->on('users')->onDelete('cascade');
+            $table->foreign('resep_id')->references('id_resep')->on('resep')->onDelete('cascade');
         });
     }
 

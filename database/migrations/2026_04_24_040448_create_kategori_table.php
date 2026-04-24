@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kategori', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_kategori');
+            $table->string('nama_kategori', 50); // Saya naikkan jadi 50 dari 10, agar nama kategori tidak mudah terpotong
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
+
+            // Relasi Self-Referencing (Kategori berelasi ke dirinya sendiri)
+            $table->foreign('parent_id')->references('id_kategori')->on('kategori')->onDelete('cascade');
         });
     }
 
