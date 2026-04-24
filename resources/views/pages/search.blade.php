@@ -2,17 +2,19 @@
 
 @section('content')
 
+<a href="/" class="btn btn-warning mb-3"> ← kembali</a>
+
 <h4 class="mb-4">
-    🔍 Hasil pencarian: "{{ $keyword }}"
+    🔎 Hasil pencarian: "{{ $keyword }}"
 </h4>
 
 @if(count($hasil) > 0)
 
     <div class="list-group">
 
-        @foreach($hasil as $index => $resep)
+        @foreach($hasil as $resep)
 
-            <a href="{{ route('detail', $index) }}"
+            <a href="{{ route('detail', $resep['id']) }}"
                class="list-group-item list-group-item-action d-flex align-items-center gap-3">
 
                 <img src="{{ asset('image/' . $resep['gambar']) }}"
@@ -33,7 +35,6 @@
 
     <div class="text-center mt-5">
         <h5>❌ Resep tidak ditemukan</h5>
-        <p>Coba kata lain</p>
     </div>
 
 @endif

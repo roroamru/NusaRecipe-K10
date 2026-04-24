@@ -249,21 +249,25 @@ $reseps = [
 /* SEARCH */
     Route::get('/search', function (Request $request) use ($reseps) {
 
-        $keyword = strtolower(trim($request->input('q')));
+    $keyword = strtolower(trim($request->input('q')));
 
-        $hasil = array_filter($reseps, function ($resep) use ($keyword) {
+    $hasil = [];
 
-            return str_contains(strtolower($resep['nama']), $keyword)
-                || str_contains(strtolower($resep['kategori']), $keyword)
-                || str_contains(strtolower($resep['deskripsi']), $keyword);
+    foreach ($reseps as $index => $resep) {
 
-        });
+        if (
+            str_contains(strtolower($resep['nama']), $keyword) ||
+            str_contains(strtolower($resep['kategori']), $keyword) ||
+            str_contains(strtolower($resep['deskripsi']), $keyword)
+        ) {
+            $resep['id'] = $index; // 🔥 SIMPAN ID ASLI
+            $hasil[] = $resep;
+        }
+    }
 
-        $hasil = array_values($hasil);
+    return view('pages.search', [
+        'hasil' => $hasil,
+        'keyword' => $request->q
+    ]);
 
-        return view('pages.search', [
-            'hasil' => $hasil,
-            'keyword' => $request->q
-        ]);
-
-    });
+});
