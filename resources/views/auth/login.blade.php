@@ -2,65 +2,76 @@
 
 @section('content')
 
-<div class="row" style="height:90vh;">
+<div class="container-fluid p-0">
+    <div class="row vh-100">
 
-    <!-- KIRI (BACKGROUND) -->
-    <div class="col-md-6 d-none d-md-block"
-        style="background:url('{{ asset('image/bg-pattern.jpg') }}') center/cover;">
-    </div>
+        <!-- KIRI (PATTERN) -->
+        <div class="col-md-6 d-none d-md-block"
+            style="background:url('{{ asset('image/bg-pattern.jpg') }}') center/cover;">
+        </div>
 
-    <!-- KANAN -->
-    <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <!-- KANAN -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
 
-        <div style="width:70%; text-align:center;">
+            <div style="width:70%; text-align:center;">
 
-            <h2 class="text-warning fw-bold mb-4">Masuk Akun</h2>
+                <h2 style="color:#f57c00; font-weight:bold; margin-bottom:30px;">
+                    Masuk Akun
+                </h2>
 
-            <input id="email"
-                class="form-control mb-3"
-                placeholder="email"
-                style="border-radius:30px; background:#f3e19b; padding:12px;">
+                <input id="email"
+                    class="form-control mb-3"
+                    placeholder="email"
+                    style="border-radius:30px; background:#f3e19b; padding:14px; border:none;">
 
-            <input id="password"
-                type="password"
-                class="form-control mb-3"
-                placeholder="kata sandi"
-                style="border-radius:30px; background:#f3e19b; padding:12px;">
+                <input id="password"
+                    type="password"
+                    class="form-control mb-4"
+                    placeholder="kata sandi"
+                    style="border-radius:30px; background:#f3e19b; padding:14px; border:none;">
 
-            <button onclick="login()"
-                class="btn w-100 mb-3"
-                style="background:#a6e25c; border-radius:30px;">
-                MASUK
-            </button>
+                <button onclick="login()"
+                    class="btn w-100 mb-3"
+                    style="background:#a6e25c; border-radius:30px; padding:12px; font-weight:bold;">
+                    MASUK
+                </button>
 
-            <p>
-                Belum memiliki akun?
-                <a href="/register" class="text-warning fw-bold">
-                    Daftar sekarang
-                </a>
-            </p>
+                <p>
+                    Belum memiliki Akun?
+                    <a href="/register" style="color:#f57c00; font-weight:bold;">
+                        Daftar sekarang
+                    </a>
+                </p>
+
+            </div>
 
         </div>
 
     </div>
-
 </div>
 
 <script>
 function login() {
 
     let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
-    if (email === "") {
-        alert("Isi email dulu!");
+    if (email === "" || password === "") {
+        alert("Isi semua field!");
         return;
     }
 
-    // SIMPAN USER
-    localStorage.setItem("currentUser", email);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    alert("Login berhasil!");
-    window.location.href = "/";
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert("Login berhasil!");
+        window.location.href = "/";
+    } else {
+        alert("Email atau password salah!");
+    }
 }
 </script>
 

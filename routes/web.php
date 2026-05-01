@@ -282,3 +282,8 @@ $reseps = [
     Route::get('/login', function () {
         return view('auth.login');
     });
+
+/* Register */
+    Route::get('/register', function () {
+        return view('auth.register');
+    });

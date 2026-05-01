@@ -6,7 +6,6 @@
 
 <div class="container">
 
-    <!-- KOTAK (JANGAN DITUTUP DI ATAS!) -->
     <div class="bg-white p-4 rounded-4 shadow-sm">
 
         <!-- ATAS -->
@@ -45,7 +44,7 @@
 
         </div>
 
-        <!-- BAHAN (SEKARANG MASUK KOTAK) -->
+        <!-- BAHAN -->
         <h4 class="mt-4 mb-3">🧂 Bahan</h4>
 
         @if(isset($resep['bahan']))
@@ -66,7 +65,7 @@
             @endforeach
         @endif
 
-        <!-- LANGKAH (JUGA MASUK KOTAK) -->
+        <!-- LANGKAH -->
         <h4 class="mt-4 mb-3">👨‍🍳 Cara Memasak</h4>
 
         @foreach($resep['langkah'] as $i => $step)
@@ -93,7 +92,7 @@
 
         @endforeach
 
-    </div> <!-- ✅ PENUTUP KOTAK DI SINI -->
+    </div> 
 
 </div>
 
