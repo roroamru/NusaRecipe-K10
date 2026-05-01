@@ -119,7 +119,8 @@ function toggleFavorite(event, nama, el) {
     event.preventDefault();
     event.stopPropagation();
 
-    let user = localStorage.getItem("currentUser");
+    // ambil user 
+    let user = JSON.parse(localStorage.getItem("currentUser"));
 
     // BELUM LOGIN
     if (!user) {
@@ -128,43 +129,54 @@ function toggleFavorite(event, nama, el) {
         return;
     }
 
-    // SUDAH LOGIN
-    let key = "favorit_" + user;
+    let key = "favorit_" + user.email;
+
     let fav = JSON.parse(localStorage.getItem(key)) || [];
 
     if (fav.includes(nama)) {
+
+        // HAPUS
         fav = fav.filter(f => f !== nama);
+
         el.classList.remove("bi-bookmark-fill");
         el.classList.add("bi-bookmark");
+
     } else {
+
+        // TAMBAH
         fav.push(nama);
+
         el.classList.remove("bi-bookmark");
         el.classList.add("bi-bookmark-fill");
     }
 
+    // simpan kembali
     localStorage.setItem(key, JSON.stringify(fav));
 }
+
 
 // LOAD ICON SAAT REFRESH
 document.addEventListener("DOMContentLoaded", function () {
 
-    let user = localStorage.getItem("currentUser");
+    let user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user) return;
 
-    let key = "favorit_" + user;
+    let key = "favorit_" + user.email;
     let fav = JSON.parse(localStorage.getItem(key)) || [];
 
     document.querySelectorAll(".bookmark").forEach(el => {
+
         let nama = el.getAttribute("data-nama");
 
         if (fav.includes(nama)) {
             el.classList.remove("bi-bookmark");
             el.classList.add("bi-bookmark-fill");
+        } else {
+            el.classList.remove("bi-bookmark-fill");
+            el.classList.add("bi-bookmark");
         }
+
     });
 
 });
 </script>
-
-</body>
-</html>

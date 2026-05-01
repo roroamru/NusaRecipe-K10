@@ -10,12 +10,25 @@
 let reseps = @json($reseps ?? []);
 
 function loadFavoritPage() {
-    let favs = JSON.parse(localStorage.getItem('favorites')) || [];
-    let container = document.getElementById("favoriteList");
 
+    // AMBIL USER
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+
+    let container = document.getElementById("favoriteList");
     container.innerHTML = "";
 
+    // kalau belum login
+    if (!user) {
+        container.innerHTML = "<p>Silakan login untuk melihat favorit</p>";
+        return;
+    }
+
+    // AMBIL FAVORIT SESUAI USER
+    let key = "favorit_" + user.email;
+    let favs = JSON.parse(localStorage.getItem(key)) || [];
+
     reseps.forEach((resep, index) => {
+
         if (favs.includes(resep.nama)) {
 
             container.innerHTML += `
@@ -34,6 +47,7 @@ function loadFavoritPage() {
             </div>
             `;
         }
+
     });
 
     if (container.innerHTML === "") {
