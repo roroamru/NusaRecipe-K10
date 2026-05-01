@@ -37,7 +37,7 @@ function loadFavoritPage() {
     });
 
     if (container.innerHTML === "") {
-        container.innerHTML = "<p>Tidak ada favorit 😢</p>";
+        container.innerHTML = "<p>Tidak ada favorit</p>";
     }
 }
 

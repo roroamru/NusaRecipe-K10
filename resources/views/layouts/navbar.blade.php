@@ -2,10 +2,10 @@
     <div class="container d-flex justify-content-between align-items-center">
 
         <!-- LOGO -->
-        <div class="d-flex align-items-center gap-2">
+        <a href="/" class="d-flex align-items-center gap-2 text-decoration-none">
             <img src="{{ asset('image/logo.png') }}" style="width:45px;">
             <h4 class="fw-bold text-warning m-0">NusaRecipe</h4>
-        </div>
+        </a>
 
         <!-- SEARCH -->
         <form action="/search" method="GET" class="position-relative">
@@ -35,8 +35,46 @@
             </a>
 
             <!-- USER -->
-            <i class="bi bi-person-circle fs-3 text-warning"></i>
+            <div id="userArea" class="text-center" style="cursor:pointer;">
+                <i class="bi bi-person-circle fs-3 text-warning"></i>
+                <div style="font-size:12px;">Akun</div>
+            </div>
+
         </div>
 
     </div>
 </nav>
+
+<!-- SCRIPT  -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let user = localStorage.getItem("currentUser");
+    let userArea = document.getElementById("userArea");
+
+    if (!userArea) return; 
+
+    if (user) {
+        // SUDAH LOGIN
+        userArea.innerHTML = `
+            <div onclick="logout()" style="cursor:pointer;">
+                <i class="bi bi-person-check fs-3 text-success"></i>
+                <div style="font-size:12px;">Logout</div>
+            </div>
+        `;
+    } else {
+        // BELUM LOGIN
+        userArea.onclick = function() {
+            window.location.href = "/login";
+        };
+    }
+
+});
+
+// LOGOUT
+function logout() {
+    localStorage.removeItem("currentUser");
+    alert("Logout berhasil!");
+    window.location.href = "/";
+}
+</script>

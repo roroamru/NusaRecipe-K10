@@ -247,5 +247,34 @@
         document.addEventListener('DOMContentLoaded', loadFavorites);
     </script>
 
+    <script>
+    function toggleFavorite(nama, el) {
+
+        let user = localStorage.getItem("currentUser");
+
+        // BELUM LOGIN
+        if (!user) {
+            alert("Silakan login dulu");
+            window.location.href = "/login";
+            return;
+        }
+
+        // SUDAH LOGIN
+        let key = "favorit_" + user;
+
+        let fav = JSON.parse(localStorage.getItem(key)) || [];
+
+        if (fav.includes(nama)) {
+            fav = fav.filter(f => f !== nama);
+            el.classList.remove("text-warning");
+        } else {
+            fav.push(nama);
+            el.classList.add("text-warning");
+        }
+
+        localStorage.setItem(key, JSON.stringify(fav));
+    }
+    </script>
+
 </body>
 </html>
