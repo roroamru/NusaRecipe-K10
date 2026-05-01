@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     
-    <!-- RESPONSIVE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NusaRecipe</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
@@ -23,23 +19,12 @@
             background: #f5f5f5;
         }
 
-        /* NAVBAR */
         .navbar {
             background: #f5e7b4;
             border-bottom: 2px solid orange;
         }
 
-        .navbar i {
-            cursor: pointer;
-        }
-
-        .navbar i:hover {
-            color: orange;
-        }
-
-        /* HERO */
         .hero {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             background: #f3d88b;
             border-radius: 20px;
             padding: 40px;
@@ -49,13 +34,6 @@
             font-family: 'Merriweather', serif;
             font-size: 32px;
             font-weight: 700;
-            line-height: 1.4;
-        }
-
-        .hero-text {
-            color: #555;
-            margin-top: 10px;
-            font-size: 14px;
         }
 
         .hero-img {
@@ -63,24 +41,20 @@
             border-radius: 15px;
         }
 
-        /* KATEGORI BUTTON */
         .kategori-btn {
             background: orange;
-            color: black;
             border-radius: 30px;
             padding: 10px 25px;
             font-weight: bold;
             border: 2px solid black;
-            margin-right: 10px;
-            transition: 0.3s;
         }
 
-        .kategori-btn:hover {
-            background: black;
-            color: orange;
+        .detail-img {
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
-        /* CARD RESEP */
         .card-resep {
             border: 2px solid orange;
             border-radius: 10px;
@@ -91,6 +65,7 @@
             height: 120px;
             background: white;
             transition: 0.3s;
+            position: relative;
         }
 
         .card-resep:hover {
@@ -104,177 +79,92 @@
             border-radius: 8px;
         }
 
-        .resep-info {
-            flex: 1;
-            margin-left: 10px;
-        }
-
         .resep-title {
             color: orange;
             font-weight: bold;
-            font-size: 14px;
         }
 
-        /* FAVORIT ICON */
         .bookmark {
             font-size: 20px;
             color: orange;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .bookmark:hover {
-            transform: scale(1.2);
+            z-index: 10;
         }
 
         .bi-bookmark-fill {
             color: orange;
         }
 
-        /* DETAIL */
-        .detail-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        @media (max-width:768px){
+            .hero { text-align:center; }
+            .hero-img { width:100%; margin-top:10px; }
         }
-
-        .detail-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #fff;
-            border-top: 2px solid orange;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            margin-top: 80px;
-        }
-
-        .footer p {
-            font-size: 14px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-
-            .hero {
-                padding: 20px;
-                text-align: center;
-            }
-
-            .hero-title {
-                font-size: 24px;
-            }
-
-            .hero-img {
-                width: 100%;
-                margin-top: 15px;
-            }
-
-            .navbar .container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .navbar input {
-                width: 100% !important;
-            }
-
-            .card-resep {
-                height: auto;
-                padding: 8px;
-            }
-
-            .detail-img {
-                height: 200px;
-            }
-        }
-
     </style>
 </head>
 
 <body>
 
-    @include('layouts.navbar')
+@include('layouts.navbar')
 
-    <div class="container mt-4">
-        @yield('content')
-    </div>
+<div class="container mt-4">
+    @yield('content')
+</div>
 
-    @include('layouts.footer')
+@include('layouts.footer')
 
-    <!-- CRIPT FAVORIT  -->
-    <script>
-        function getFavorites() {
-            return JSON.parse(localStorage.getItem('favorites')) || [];
-        }
+<!-- SCRIPT FAVORIT -->
+<script>
+function toggleFavorite(event, nama, el) {
 
-        function toggleFavorite(nama, el, e) {
-            e.stopPropagation();   // ❗ stop klik ke card
-            e.preventDefault();    // ❗ stop buka link
+    event.preventDefault();
+    event.stopPropagation();
 
-            let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+    let user = localStorage.getItem("currentUser");
 
-            if (favs.includes(nama)) {
-                favs = favs.filter(f => f !== nama);
-                el.classList.remove('bi-bookmark-fill');
-                el.classList.add('bi-bookmark');
-            } else {
-                favs.push(nama);
-                el.classList.remove('bi-bookmark');
-                el.classList.add('bi-bookmark-fill');
-            }
+    // BELUM LOGIN
+    if (!user) {
+        alert("Silakan login dulu");
+        window.location.href = "/login";
+        return;
+    }
 
-            localStorage.setItem('favorites', JSON.stringify(favs));
-        }
+    // SUDAH LOGIN
+    let key = "favorit_" + user;
+    let fav = JSON.parse(localStorage.getItem(key)) || [];
 
-        function loadFavorites() {
-            let favs = getFavorites();
+    if (fav.includes(nama)) {
+        fav = fav.filter(f => f !== nama);
+        el.classList.remove("bi-bookmark-fill");
+        el.classList.add("bi-bookmark");
+    } else {
+        fav.push(nama);
+        el.classList.remove("bi-bookmark");
+        el.classList.add("bi-bookmark-fill");
+    }
 
-            document.querySelectorAll('.bookmark').forEach(el => {
-                let nama = el.getAttribute('data-nama');
+    localStorage.setItem(key, JSON.stringify(fav));
+}
 
-                if (favs.includes(nama)) {
-                    el.classList.remove('bi-bookmark');
-                    el.classList.add('bi-bookmark-fill');
-                }
-            });
-        }
+// LOAD ICON SAAT REFRESH
+document.addEventListener("DOMContentLoaded", function () {
 
-        document.addEventListener('DOMContentLoaded', loadFavorites);
-    </script>
+    let user = localStorage.getItem("currentUser");
+    if (!user) return;
 
-    <script>
-    function toggleFavorite(nama, el) {
+    let key = "favorit_" + user;
+    let fav = JSON.parse(localStorage.getItem(key)) || [];
 
-        let user = localStorage.getItem("currentUser");
-
-        // BELUM LOGIN
-        if (!user) {
-            alert("Silakan login dulu");
-            window.location.href = "/login";
-            return;
-        }
-
-        // SUDAH LOGIN
-        let key = "favorit_" + user;
-
-        let fav = JSON.parse(localStorage.getItem(key)) || [];
+    document.querySelectorAll(".bookmark").forEach(el => {
+        let nama = el.getAttribute("data-nama");
 
         if (fav.includes(nama)) {
-            fav = fav.filter(f => f !== nama);
-            el.classList.remove("text-warning");
-        } else {
-            fav.push(nama);
-            el.classList.add("text-warning");
+            el.classList.remove("bi-bookmark");
+            el.classList.add("bi-bookmark-fill");
         }
+    });
 
-        localStorage.setItem(key, JSON.stringify(fav));
-    }
-    </script>
+});
+</script>
 
 </body>
 </html>
