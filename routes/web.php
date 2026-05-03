@@ -274,6 +274,16 @@ $reseps = [
 
 /* Favorite */
 
-        Route::get('/favorit', function () use ($reseps) {
-        return view('pages.favorit', compact('reseps'));
+    Route::get('/favorit', function () use ($reseps) {
+    return view('pages.favorit', compact('reseps'));
+    });
+
+/* Login */
+    Route::get('/login', function () {
+        return view('auth.login');
+    });
+
+/* Register */
+    Route::get('/register', function () {
+        return view('auth.register');
     });

@@ -8,11 +8,11 @@
 
         <div class="col-md-7">
             <h2 class="hero-title">
-                Temukan resep masakan Nusantara yang mudah, praktis dan lezat.
+                Temukan resep masakan Nusantara yang mudah, praktis, dan lezat.
             </h2>
 
             <p class="hero-text">
-                Jelajahi berbagai resep khas Indonesia dan masak dengan percaya diri dirumahmu.
+                Jelajahi berbagai resep khas Indonesia dan masak dengan percaya diri di rumahmu.
             </p>
         </div>
 
@@ -39,22 +39,33 @@
     @foreach($reseps as $index => $resep)
     <div class="col-12 col-sm-6 col-lg-3 mb-3">
 
-        <a href="{{ route('detail', $index) }}" style="text-decoration:none;">
-            <div class="card-resep">
+        <!-- CARD -->
+        <div class="card-resep position-relative">
 
-                <img src="{{ asset('image/' . $resep['gambar']) }}">
+            <a href="{{ route('detail', $index) }}"
+               style="display:flex; align-items:center; gap:12px; padding:10px; text-decoration:none;">
 
+                <!-- GAMBAR -->
+                <img src="{{ asset('image/' . $resep['gambar']) }}"
+                     style="width:80px; height:80px; object-fit:cover; border-radius:10px;">
+
+                <!-- TEKS -->
                 <div class="resep-info">
-                    <div class="resep-title">{{ $resep['nama'] }}</div>
+                    <div class="resep-title" style="line-height:1.4;">
+                        {{ $resep['nama'] }}
+                    </div>
                 </div>
 
-                <i class="bi bi-bookmark bookmark"
-                   data-nama="{{ $resep['nama'] }}"
-                   onclick="toggleFavorite('{{ $resep['nama'] }}', this, event)">
-                </i>
+            </a>
 
-            </div>
-        </a>
+            <!-- FAVORIT -->
+            <i class="bi bi-bookmark bookmark position-absolute"
+               style="right:10px; top:10px;"
+               data-nama="{{ $resep['nama'] }}"
+               onclick="toggleFavorite(event, '{{ $resep['nama'] }}', this)">
+            </i>
+
+        </div>
 
     </div>
     @endforeach
@@ -62,21 +73,3 @@
 </div>
 
 @endsection
-
-<!-- SCRIPT SEARCH -->
-<script>
-function searchResep() {
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let items = document.querySelectorAll(".resep-item");
-
-    items.forEach(item => {
-        let nama = item.getAttribute("data-nama");
-
-        if (nama.includes(input)) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
-}
-</script>
