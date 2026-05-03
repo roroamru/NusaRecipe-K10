@@ -2,16 +2,51 @@
 
 @section('content')
 
-<div class="container-fluid p-0">
-    <div class="row vh-100">
+<a href="/" class="btn btn-warning mb-3"> ← kembali</a>
+
+<style>
+.full-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CARD */
+.auth-card {
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* KIRI (GAMBAR) */
+.auth-left {
+    width: 50%;
+    background: url('{{ asset('image/gambar.jpg') }}') center/cover;
+}
+
+/* KANAN (FORM) */
+.auth-right {
+    width: 50%;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+
+<div class="full-page">
+
+    <div class="auth-card">
 
         <!-- KIRI -->
-        <div class="col-md-6 d-none d-md-block"
-            style="background:url('{{ asset('image/bg-pattern.jpg') }}') center/cover;">
-        </div>
+        <div class="auth-left"></div>
 
         <!-- KANAN -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div class="auth-right">
 
             <div style="width:70%; text-align:center;">
 
@@ -58,6 +93,7 @@
         </div>
 
     </div>
+
 </div>
 
 <script>
@@ -81,7 +117,7 @@ function handleRegister(e) {
 
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Register berhasil! Silakan login");
+    alert("Register berhasil!");
     window.location.href = "/login";
 }
 </script>
