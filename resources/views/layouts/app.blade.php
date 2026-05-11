@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     
-    <!-- RESPONSIVE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NusaRecipe</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
@@ -23,23 +19,12 @@
             background: #f5f5f5;
         }
 
-        /* NAVBAR */
         .navbar {
             background: #f5e7b4;
-            border-bottom: 2px solid orange;   
+            border-bottom: 2px solid orange;
         }
 
-        .navbar i {
-            cursor: pointer;
-        }
-
-        .navbar i:hover {
-            color: orange;
-        }
-
-        /* HERO */
         .hero {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             background: #f3d88b;
             border-radius: 20px;
             padding: 40px;
@@ -49,13 +34,6 @@
             font-family: 'Merriweather', serif;
             font-size: 32px;
             font-weight: 700;
-            line-height: 1.4;
-        }
-
-        .hero-text {
-            color: #555;
-            margin-top: 10px;
-            font-size: 14px;
         }
 
         .hero-img {
@@ -63,24 +41,20 @@
             border-radius: 15px;
         }
 
-        /* KATEGORI BUTTON */
         .kategori-btn {
             background: orange;
-            color: black;
             border-radius: 30px;
             padding: 10px 25px;
             font-weight: bold;
             border: 2px solid black;
-            margin-right: 10px;
-            transition: 0.3s;
         }
 
-        .kategori-btn:hover {
-            background: black;
-            color: orange;
+        .detail-img {
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
-        /* CARD RESEP */
         .card-resep {
             border: 2px solid orange;
             border-radius: 10px;
@@ -91,6 +65,11 @@
             height: 120px;
             background: white;
             transition: 0.3s;
+            position: relative;
+        }
+
+        .card-resep:hover {
+            transform: scale(1.05);
         }
 
         .card-resep img {
@@ -100,110 +79,126 @@
             border-radius: 8px;
         }
 
-        .resep-info {
-            flex: 1;
-            margin-left: 10px;
-        }
-
         .resep-title {
             color: orange;
             font-weight: bold;
-            font-size: 14px;
         }
 
         .bookmark {
             font-size: 20px;
             color: orange;
             cursor: pointer;
+            z-index: 10;
         }
 
-        .detail-img {
-            width: 100%;
-            max-height: 350px;
-            object-fit: contain; 
-            border-radius: 15px;
+        .bi-bookmark-fill {
+            color: orange;
         }
 
-        .card-resep:hover {
-            transform: scale(1.05);
+        @media (max-width:768px){
+            .hero { text-align:center; }
+            .hero-img { width:100%; margin-top:10px; }
         }
-
-        .detail-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .detail-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-
-        .footer {
-            background: #fff;
-            border-top: 2px solid orange;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            margin-top: 80px;
-        }
-
-        .footer p {
-            font-size: 14px;
-        }
-
-        /* RESPONSIVE MOBILE (TAMBAHAN) */
-        @media (max-width: 768px) {
-
-            /* HERO */
-            .hero {
-                padding: 20px;
-                text-align: center;
-            }
-
-            .hero-title {
-                font-size: 24px;
-            }
-
-            .hero-img {
-                width: 100%;
-                margin-top: 15px;
-            }
-
-            /* NAVBAR */
-            .navbar .container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .navbar input {
-                width: 100% !important;
-            }
-
-            /* CARD */
-            .card-resep {
-                height: auto;
-                padding: 8px;
-            }
-
-            /* DETAIL */
-            .detail-img {
-                height: 200px;
-            }
-
-        }
-
     </style>
 </head>
+
 <body>
 
-    @include('layouts.navbar')
+@include('layouts.navbar')
 
-    <div class="container mt-4">
-        @yield('content')
-    </div>
+<div class="container mt-4">
+    @yield('content')
+</div>
 
-    @include('layouts.footer')
+@include('layouts.footer')
 
-</body>
-</html>
+<!-- SCRIPT FAVORIT -->
+<script>
+function toggleFavorite(event, nama, el) {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    // ambil user 
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+
+    // BELUM LOGIN
+    if (!user) {
+        alert("Silakan login dulu");
+        window.location.href = "/login";
+        return;
+    }
+
+    let key = "favorit_" + user.email;
+    let fav = JSON.parse(localStorage.getItem(key)) || [];
+    
+    // Bikin variabel penanda untuk dikirim ke database
+    let aksi = ""; 
+
+    if (fav.includes(nama)) {
+        // HAPUS DARI BROWSER
+        fav = fav.filter(f => f !== nama);
+        el.classList.remove("bi-bookmark-fill");
+        el.classList.add("bi-bookmark");
+        aksi = "hapus"; // Penanda hapus
+    } else {
+        // TAMBAH KE BROWSER
+        fav.push(nama);
+        el.classList.remove("bi-bookmark");
+        el.classList.add("bi-bookmark-fill");
+        aksi = "tambah"; // Penanda tambah
+    }
+
+    // simpan kembali ke browser (biar warnanya langsung berubah)
+    localStorage.setItem(key, JSON.stringify(fav));
+
+    // ==========================================
+    // KIRIM DATA KE DATABASE (API BACKEND)
+    // ==========================================
+    fetch('/api/favorit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: user.email,       // Siapa yang nyimpen
+            nama_resep: nama,        // Resep apa yang disimpan
+            action: aksi             // Mau ditambah atau dihapus
+        })
+    })
+    .then(response => response.json())
+    .then(hasil => {
+        console.log("Balasan dari database:", hasil);
+    })
+    .catch(error => {
+        console.error('Database belum siap menerima:', error);
+    });
+}
+
+
+// LOAD ICON SAAT REFRESH
+document.addEventListener("DOMContentLoaded", function () {
+
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) return;
+
+    let key = "favorit_" + user.email;
+    let fav = JSON.parse(localStorage.getItem(key)) || [];
+
+    document.querySelectorAll(".bookmark").forEach(el => {
+
+        let nama = el.getAttribute("data-nama");
+
+        if (fav.includes(nama)) {
+            el.classList.remove("bi-bookmark");
+            el.classList.add("bi-bookmark-fill");
+        } else {
+            el.classList.remove("bi-bookmark-fill");
+            el.classList.add("bi-bookmark");
+        }
+
+    });
+
+});
+</script>
