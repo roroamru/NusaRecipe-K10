@@ -287,3 +287,31 @@ $reseps = [
     Route::get('/register', function () {
         return view('auth.register');
     });
+
+/* Kategori */
+Route::get('/kategori/{jenis}', function ($jenis) {
+
+    $reseps = [
+        [
+            'nama' => 'Ayam Goreng Krispi',
+            'gambar' => 'ayam.jpg',
+            'kategori' => 'makanan',
+            'subkategori' => 'tidak-berkuah',
+        ],
+
+        [
+            'nama' => 'Sop Ala Rumahan',
+            'gambar' => 'sop.jpg',
+            'kategori' => 'makanan',
+            'subkategori' => 'kuah',
+        ],
+
+        [
+            'nama' => 'Es Buah',
+            'gambar' => 'esbuah.jpg',
+            'kategori' => 'minuman',
+        ],
+    ];
+
+    return view('pages.kategori', compact('jenis', 'reseps'));
+    });

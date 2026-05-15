@@ -26,9 +26,23 @@
 <!-- KATEGORI -->
 <h5>Kategori Resep</h5>
 <div class="mb-4 d-flex gap-2 flex-wrap">
-    <button class="kategori-btn">Makanan</button>
-    <button class="kategori-btn">Minuman</button>
-    <button class="kategori-btn">Cemilan</button>
+    <a href="/kategori/makanan">
+    <button class="kategori-btn">
+        Makanan
+    </button>
+    </a>
+
+    <a href="/kategori/minuman">
+        <button class="kategori-btn">
+            Minuman
+        </button>
+    </a>
+
+    <a href="/kategori/cemilan">
+        <button class="kategori-btn">
+            Cemilan
+        </button>
+    </a>
 </div>
 
 <!-- REKOMENDASI -->
