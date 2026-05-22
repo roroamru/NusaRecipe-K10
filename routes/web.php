@@ -278,6 +278,11 @@ $reseps = [
     return view('pages.favorit', compact('reseps'));
     });
 
+/* Akun */
+    Route::get('/akun', function () {
+        return view('pages.akun');
+    });
+
 /* Login */
     Route::get('/login', function () {
         return view('auth.login');
@@ -286,4 +291,46 @@ $reseps = [
 /* Register */
     Route::get('/register', function () {
         return view('auth.register');
+    });
+
+/* KATEGORI */
+Route::get('/kategori/{jenis}', function ($jenis) use ($reseps) {
+
+    return view('pages.kategori', [
+        'jenis' => $jenis,
+        'reseps' => $reseps
+    ]);
+
+});
+
+
+/* ADMIN */
+    // DASHBOARD ADMIN
+    Route::get('/admin', function () use ($reseps) {
+
+        return view('pages.admin', compact('reseps'));
+
+    });
+
+
+    // HALAMAN TAMBAH RESEP
+    Route::get('/admin/tambah', function () {
+
+        return view('pages.tambah');
+
+    });
+
+
+    // HALAMAN EDIT RESEP
+    Route::get('/admin/edit/{id}', function ($id) use ($reseps) {
+
+        // cek resep ada atau tidak
+        if (!isset($reseps[$id])) {
+            abort(404);
+        }
+
+        $resep = $reseps[$id];
+
+        return view('pages.edit', compact('resep'));
+
     });

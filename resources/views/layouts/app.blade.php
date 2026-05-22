@@ -47,6 +47,30 @@
             padding: 10px 25px;
             font-weight: bold;
             border: 2px solid black;
+
+            /* tambahan hover */
+            transition: all 0.25s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        /* efek timbul pas disentuh */
+        .kategori-btn:hover {
+            transform:
+                translateY(-6px)
+                scale(1.03);
+
+            box-shadow:
+                0 10px 22px rgba(0,0,0,0.22);
+
+            background: #ffb400;
+            cursor: pointer;
+        }
+
+        /* efek ditekan */
+        .kategori-btn:active {
+            transform:
+                translateY(-2px)
+                scale(0.98);
         }
 
         .detail-img {
@@ -102,13 +126,22 @@
     </style>
 </head>
 
-<body>
+<body style="
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+">
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
-    @yield('content')
-</div>
+<!-- CONTENT -->
+<main style="flex:1;">
+
+    <div class="container mt-4">
+        @yield('content')
+    </div>
+
+</main>
 
 @include('layouts.footer')
 
