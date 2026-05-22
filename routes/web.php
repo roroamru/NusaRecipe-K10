@@ -288,30 +288,44 @@ $reseps = [
         return view('auth.register');
     });
 
-/* Kategori */
-Route::get('/kategori/{jenis}', function ($jenis) {
+/* KATEGORI */
+Route::get('/kategori/{jenis}', function ($jenis) use ($reseps) {
 
-    $reseps = [
-        [
-            'nama' => 'Ayam Goreng Krispi',
-            'gambar' => 'ayam.jpg',
-            'kategori' => 'makanan',
-            'subkategori' => 'tidak-berkuah',
-        ],
+    return view('pages.kategori', [
+        'jenis' => $jenis,
+        'reseps' => $reseps
+    ]);
 
-        [
-            'nama' => 'Sop Ala Rumahan',
-            'gambar' => 'sop.jpg',
-            'kategori' => 'makanan',
-            'subkategori' => 'kuah',
-        ],
+});
 
-        [
-            'nama' => 'Es Buah',
-            'gambar' => 'esbuah.jpg',
-            'kategori' => 'minuman',
-        ],
-    ];
 
-    return view('pages.kategori', compact('jenis', 'reseps'));
+/* ADMIN */
+    // DASHBOARD ADMIN
+    Route::get('/admin', function () use ($reseps) {
+
+        return view('pages.admin', compact('reseps'));
+
+    });
+
+
+    // HALAMAN TAMBAH RESEP
+    Route::get('/admin/tambah', function () {
+
+        return view('pages.tambah');
+
+    });
+
+
+    // HALAMAN EDIT RESEP
+    Route::get('/admin/edit/{id}', function ($id) use ($reseps) {
+
+        // cek resep ada atau tidak
+        if (!isset($reseps[$id])) {
+            abort(404);
+        }
+
+        $resep = $reseps[$id];
+
+        return view('pages.edit', compact('resep'));
+
     });
