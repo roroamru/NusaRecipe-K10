@@ -1,56 +1,113 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Resep</title>
 
-@section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
 
-<div class="container-fluid py-4">
+<body style="
+    background:#f3f3f3;
+    min-height:100vh;
+    overflow-x:hidden;
+">
 
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<!-- HEADER -->
+<div style="
+    background:#f5e3a2;
+    padding:15px 40px;
+">
 
-        <h1 style="
-            font-family:serif;
-            font-size:55px;
-            font-weight:bold;
-        ">
-            Tambah Resep
-        </h1>
+    <div class="d-flex justify-content-between align-items-center">
 
-        <h2 style="
-            color:orange;
-            font-style:italic;
-            font-weight:bold;
-        ">
-            Dashboard Admin
-        </h2>
+        <!-- KIRI -->
+        <div class="d-flex align-items-center gap-3">
+
+            <img src="{{ asset('image/logo.png') }}"
+                style="width:60px;">
+
+            <h1 style="
+                font-family:serif;
+                font-size:42px;
+                font-weight:bold;
+                margin:0;
+            ">
+                Tambah Resep
+            </h1>
+
+        </div>
+
+        <!-- KANAN -->
+        <div class="d-flex align-items-center gap-3">
+
+            <h2 style="
+                color:orange;
+                font-style:italic;
+                font-weight:bold;
+                margin:0;
+            ">
+                Dashboard Admin
+            </h2>
+
+            <img src="{{ asset('image/profile.png') }}"
+                style="
+                    width:60px;
+                    height:60px;
+                    border-radius:50%;
+                    object-fit:cover;
+                ">
+        </div>
 
     </div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="container py-5">
 
     <div class="row justify-content-center g-4">
 
         <!-- GAMBAR -->
         <div class="col-md-3">
 
-            <h2 class="text-center mb-4"
-                style="font-family:serif;">
+            <h2 class="text-center mb-3"
+                style="
+                    font-family:serif;
+                    font-size:34px;
+                ">
                 Gambar Resep
             </h2>
 
             <div style="
                 background:#f5e3a2;
-                padding:35px;
+                border-radius:20px;
+                padding:25px;
                 text-align:center;
-                border-radius:10px;
+                height:360px;
             ">
 
-                <img src="{{ asset('image/default-image.png') }}"
+                <!-- Preview gambar -->
+                <img id="preview"
+                    src="{{ asset('image/default-image.png') }}"
                     style="
                         width:220px;
-                        height:220px;
+                        height:180px;
                         object-fit:cover;
                     ">
 
-                <p class="mt-4 mb-0"
-                    style="font-size:25px;">
+                <br><br>
+
+                <input type="file"
+                    id="gambar"
+                    class="form-control"
+                    accept="image/*"
+                    onchange="previewImage(event)">
+
+                <p class="mt-3"
+                    style="font-size:18px;">
                     Upload Gambar Resep
                 </p>
 
@@ -62,80 +119,119 @@
         <div class="col-md-3">
 
             <div style="
-                background:#b9f55d;
+                background:#b8f04b;
                 border-radius:30px;
-                padding:35px;
+                padding:30px;
+                height:430px;
             ">
 
                 <h1 class="text-center mb-4"
-                    style="font-family:serif;">
+                    style="
+                        font-family:serif;
+                        font-size:34px;
+                    ">
                     Informasi Resep
                 </h1>
 
                 <label>Nama Resep</label>
 
                 <input type="text"
-                    class="form-control mb-4"
+                    class="form-control mb-3"
                     style="
-                        border-radius:12px;
-                        height:65px;
+                        border-radius:10px;
+                        height:50px;
                     ">
 
                 <label>Kategori</label>
 
-                <select class="form-select mb-4"
+                <select id="kategori"
+                    class="form-select mb-3"
+                    onchange="ubahSubKategori()"
                     style="
-                        border-radius:12px;
-                        height:65px;
+                        border-radius:10px;
+                        height:50px;
                     ">
-                    <option>Pilih Kategori</option>
-                    <option>Makanan</option>
-                    <option>Minuman</option>
-                    <option>Cemilan</option>
+
+                    <option value="">
+                        Pilih Kategori
+                    </option>
+
+                    <option value="makanan">
+                        Makanan
+                    </option>
+
+                    <option value="minuman">
+                        Minuman
+                    </option>
+
+                    <option value="cemilan">
+                        Cemilan
+                    </option>
+
                 </select>
 
                 <label>Sub Kategori</label>
 
-                <select class="form-select"
+                <select id="subkategori"
+                    class="form-select"
                     style="
-                        border-radius:12px;
-                        height:65px;
+                        border-radius:10px;
+                        height:50px;
                     ">
-                    <option>Pilih Sub Kategori</option>
-                    <option>Kuah</option>
-                    <option>Tidak Berkuah</option>
+
+                    <option>
+                        Pilih Sub Kategori
+                    </option>
+
                 </select>
 
             </div>
 
         </div>
 
-        <!-- BAHAN & LANGKAH -->
+        <!-- BAHAN -->
         <div class="col-md-3">
 
             <div style="
-                background:#b9f55d;
+                background:#b8f04b;
                 border-radius:30px;
-                padding:35px;
+                padding:30px;
+                height:430px;
             ">
 
-                <h2 class="text-center mb-4"
-                    style="font-family:serif;">
+                <h2 class="text-center mb-3"
+                    style="
+                        font-family:serif;
+                        font-size:30px;
+                    ">
                     Bahan - Bahan
                 </h2>
 
-                <textarea class="form-control mb-4"
+                <textarea
+                    class="form-control mb-3"
                     rows="5"
-                    placeholder="• Ayam&#10;• Tepung&#10;• Minyak"></textarea>
+                    style="
+                        border:2px solid black;
+                        resize:none;
+                        height:110px;
+                    "></textarea>
 
-                <h2 class="text-center mb-4"
-                    style="font-family:serif;">
+                <h2 class="text-center mb-3"
+                    style="
+                        font-family:serif;
+                        font-size:30px;
+                    ">
                     Langkah - Langkah
                 </h2>
 
-                <textarea class="form-control"
+                <textarea
+                    class="form-control"
                     rows="5"
-                    placeholder="1. Langkah pertama"></textarea>
+                    style="
+                        border:2px solid black;
+                        resize:none;
+                        height:110px;
+                    "></textarea>
 
             </div>
 
@@ -151,8 +247,9 @@
             style="
                 background:#f5e3a2;
                 border-radius:40px;
-                padding:15px 50px;
-                font-size:25px;
+                padding:12px 50px;
+                font-size:24px;
+                width:170px;
             ">
             Batal
         </a>
@@ -161,8 +258,9 @@
             style="
                 background:#f5e3a2;
                 border-radius:40px;
-                padding:15px 50px;
-                font-size:25px;
+                padding:12px 50px;
+                font-size:24px;
+                width:170px;
             ">
             Simpan
         </button>
@@ -171,4 +269,56 @@
 
 </div>
 
-@endsection
+<script>
+
+// preview gambar
+function previewImage(event) {
+
+    const image =
+        document.getElementById('preview');
+
+    image.src =
+        URL.createObjectURL(
+            event.target.files[0]
+        );
+}
+
+// sub kategori otomatis
+function ubahSubKategori() {
+
+    const kategori =
+        document.getElementById('kategori').value;
+
+    const sub =
+        document.getElementById('subkategori');
+
+    sub.innerHTML = '';
+
+    if(kategori === 'makanan') {
+
+        sub.innerHTML = `
+            <option>Kuah</option>
+            <option>Tidak Kuah</option>
+        `;
+    }
+
+    else if(kategori === 'minuman') {
+
+        sub.innerHTML = `
+            <option>Dingin</option>
+            <option>Hangat</option>
+        `;
+    }
+
+    else if(kategori === 'cemilan') {
+
+        sub.innerHTML = `
+            <option>Tidak Ada</option>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>

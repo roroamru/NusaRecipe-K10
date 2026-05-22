@@ -1,40 +1,84 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Resep</title>
 
-@section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
 
-<div class="container mt-4">
+<body style="
+    background:#f5f5f5;
+    min-height:100vh;
+">
 
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-5">
+<!-- HEADER KUNING -->
+<div style="
+    background:#f5e3a2;
+    padding:20px 40px;
+">
 
-        <h1 style="
-            font-weight:bold;
-            font-size:55px;
-            font-family:serif;
-        ">
-            Kelola Resep
-        </h1>
+    <div class="d-flex justify-content-between align-items-center">
 
-        <h2 style="
-            color:orange;
-            font-weight:bold;
-            font-style:italic;
-        ">
-            Dashboard Admin
-        </h2>
+        <!-- KIRI -->
+        <div class="d-flex align-items-center gap-4">
+
+            <img src="{{ asset('image/logo.png') }}"
+                style="width:70px;">
+
+            <h1 style="
+                font-family:serif;
+                font-size:55px;
+                font-weight:bold;
+                margin:0;
+            ">
+                Kelola Resep
+            </h1>
+
+        </div>
+
+        <!-- KANAN -->
+        <div class="d-flex align-items-center gap-4">
+
+            <h2 style="
+                color:orange;
+                font-style:italic;
+                font-weight:bold;
+                margin:0;
+            ">
+                Dashboard Admin
+            </h2>
+
+            <img src="{{ asset('image/profile.png') }}"
+                style="
+                    width:70px;
+                    height:70px;
+                    border-radius:50%;
+                ">
+
+        </div>
 
     </div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="container py-5">
 
     <!-- TABLE -->
     <div class="table-responsive">
 
         <table class="table text-center align-middle"
             style="
-                border:2px solid #f3dca0;
-                background:#fff;
+                background:white;
+                border:2px solid #f2d48f;
             ">
 
-            <thead style="background:#f9e7bb;">
+            <thead style="
+                background:#f9e7bb;
+            ">
 
                 <tr>
                     <th>NO</th>
@@ -52,9 +96,13 @@
 
                 <tr>
 
-                    <td>{{ $index + 1 }}</td>
+                    <td>
+                        {{ $index + 1 }}
+                    </td>
 
-                    <td>{{ $resep['nama'] }}</td>
+                    <td>
+                        {{ $resep['nama'] }}
+                    </td>
 
                     <td>
                         {{ ucfirst($resep['kategori']) }}
@@ -99,23 +147,26 @@
     </div>
 
     <!-- BUTTON -->
-    <div class="text-end mt-4">
+    <div class="text-end mt-5">
 
         <a href="/admin/tambah"
             class="btn"
             style="
-                background:#f4e08a;
+                background:#f5e3a2;
                 border-radius:40px;
                 padding:18px 60px;
                 font-size:22px;
                 color:#2ecc71;
                 font-weight:bold;
             ">
+
             + Menu Baru
+
         </a>
 
     </div>
 
 </div>
 
-@endsection
+</body>
+</html>
