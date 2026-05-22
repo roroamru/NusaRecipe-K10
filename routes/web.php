@@ -278,6 +278,11 @@ $reseps = [
     return view('pages.favorit', compact('reseps'));
     });
 
+/* Akun */
+    Route::get('/akun', function () {
+        return view('pages.akun');
+    });
+
 /* Login */
     Route::get('/login', function () {
         return view('auth.login');
