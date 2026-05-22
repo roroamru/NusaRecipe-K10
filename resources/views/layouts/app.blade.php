@@ -126,13 +126,22 @@
     </style>
 </head>
 
-<body>
+<body style="
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+">
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
-    @yield('content')
-</div>
+<!-- CONTENT -->
+<main style="flex:1;">
+
+    <div class="container mt-4">
+        @yield('content')
+    </div>
+
+</main>
 
 @include('layouts.footer')
 
