@@ -35,9 +35,16 @@
             </a>
 
             <!-- USER -->
-            <div id="userArea" class="text-center" style="cursor:pointer;">
-                <i class="bi bi-person-circle fs-3 text-warning"></i>
-                <div style="font-size:12px;">Akun</div>
+            <div id="userArea" class="text-center">
+                
+                <a href="/akun"
+                    style="text-decoration:none; color:inherit;">
+
+                    <i class="bi bi-person-circle fs-3 text-warning"></i>
+                    <div style="font-size:12px;">Akun</div>
+
+                </a>
+
             </div>
 
         </div>
@@ -64,12 +71,16 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     } else {
         // BELUM LOGIN
-        userArea.onclick = function() {
-            window.location.href = "/login";
-        };
+        userArea.innerHTML = `
+            <a href="/akun"
+            style="text-decoration:none; color:inherit;">
+            
+                <i class="bi bi-person-circle fs-3 text-warning"></i>
+                <div style="font-size:12px;">Akun</div>
+                
+            </a>
+        `;
     }
-
-});
 
 // LOGOUT
 function logout() {
