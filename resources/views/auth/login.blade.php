@@ -110,15 +110,21 @@ function login() {
     .then(hasil => {
         if (hasil.success === true || hasil.message === "Login berhasil") {
             
-            // INI KUNCI RAHASIANYA: KITA KEMBALIKAN KE NAMA ASLIMU "currentUser"
+            // 1. Simpan data user ke memori
             let dataSistem = hasil.data ? hasil.data : { email: email };
             localStorage.setItem("currentUser", JSON.stringify(dataSistem));
             
-            // Simpan tiket buatan untuk jaga-jaga
+            // 2. Simpan tiket
             localStorage.setItem("token_nusarecipe", "SUDAH_LOGIN");
 
             alert("Hore! Login berhasil!");
-            window.location.href = "/"; 
+
+            // 3. PENGALIHAN OTOMATIS (Cek Role Admin)
+            if (dataSistem.role === 'admin') {
+                window.location.href = "/admin"; // Terbangkan ke Dashboard Admin
+            } else {
+                window.location.href = "/"; // Terbangkan ke Home biasa
+            }
             
         } else {
             alert("Gagal: " + (hasil.message || "Email atau password salah!"));

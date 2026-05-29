@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
+
 
 /* =========================
    DATA RESEP (LENGKAP)
@@ -291,6 +293,11 @@ Route::get('/register', function () {
     return view('auth.register');
 });
 
+/* AKUN */
+Route::get('/akun', function () {
+    return view('pages.akun');
+});
+
 /* KATEGORI */
 Route::get('/kategori/{jenis}', function ($jenis) use ($reseps) {
 
@@ -301,34 +308,44 @@ Route::get('/kategori/{jenis}', function ($jenis) use ($reseps) {
 
 });
 
+// DASHBOARD ADMIN
+Route::get('/admin', function () {
+    // Kita ambil data dari tabel 'resep' dan gabungkan (join) dengan tabel 'kategori' 
+    // supaya yang muncul nama kategorinya, bukan sekadar angka id_kategori.
+    $resepAsli = DB::table('resep')
+        ->leftJoin('kategori', 'resep.id_kategori', '=', 'kategori.id_kategori')
+        ->select('resep.*', 'kategori.nama_kategori')
+        ->get();
+
+    return view('pages.admin', ['reseps' => $resepAsli]);
+});
 
 /* ADMIN */
-    // DASHBOARD ADMIN
-    Route::get('/admin', function () use ($reseps) {
 
-        return view('pages.admin', compact('reseps'));
+    // DASHBOARD ADMIN (Versi Database)
+    Route::get('/admin', function () {
+        // Mengambil data dari tabel 'resep' dan menggabungkannya dengan tabel 'kategori' 
+        $resepAsli = DB::table('resep')
+            ->leftJoin('kategori', 'resep.id_kategori', '=', 'kategori.id_kategori')
+            ->select('resep.*', 'kategori.nama_kategori')
+            ->get();
 
+        return view('pages.admin', ['reseps' => $resepAsli]);
     });
-
 
     // HALAMAN TAMBAH RESEP
     Route::get('/admin/tambah', function () {
-
         return view('pages.tambah');
-
     });
-
 
     // HALAMAN EDIT RESEP
     Route::get('/admin/edit/{id}', function ($id) use ($reseps) {
-
-        // cek resep ada atau tidak
+        // Saat ini bagian Edit MASIH pakai data dummy ($reseps).
+        // Nanti kita akan ubah ini juga supaya ambil dari database!
         if (!isset($reseps[$id])) {
             abort(404);
         }
 
         $resep = $reseps[$id];
-
         return view('pages.edit', compact('resep'));
-
     });
