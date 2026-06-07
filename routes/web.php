@@ -280,24 +280,18 @@ Route::get('/kategori/{jenis}', function ($jenis) {
 
 
 /* SEARCH */
-Route::get('/search', function (Request $request) use ($reseps) {
-    $keyword = strtolower(trim($request->input('q')));
-    $hasil = [];
-
-    foreach ($reseps as $index => $resep) {
-        if (
-            str_contains(strtolower($resep['nama']), $keyword) ||
-            str_contains(strtolower($resep['kategori']), $keyword) ||
-            str_contains(strtolower($resep['deskripsi']), $keyword)
-        ) {
-            $resep['id'] = $index; 
-            $hasil[] = $resep;
-        }
-    }
+Route::get('/search', function (Request $request) {
+    // Tangkap kata kunci yang diketik user
+    $keyword = trim($request->input('q'));
+    
+    // Cari langsung ke database menggunakan fitur LIKE
+    $hasil = DB::table('resep')
+        ->where('nama_resep', 'like', "%" . $keyword . "%")
+        ->get();
 
     return view('pages.search', [
         'hasil' => $hasil,
-        'keyword' => $request->q
+        'keyword' => $keyword
     ]);
 });
 
