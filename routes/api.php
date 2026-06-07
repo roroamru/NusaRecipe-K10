@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ResepController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\FavoritController; 
+use App\Http\Controllers\Api\FavoritController;
 use App\Http\Controllers\Api\KategoriController;
 
 /*
@@ -27,10 +27,8 @@ Route::get('/resep/{id}', [ResepController::class, 'show']);
 // Rute untuk menerima data resep baru
 Route::post('/resep/tambah', [ResepController::class, 'store']);
 
-// --- URL UNTUK FAVORIT ---
-Route::post('/favorit', [FavoritController::class, 'toggleFavorit']); // Tambahkan baris ini
-
 // --- URL UNTUK KATEGORI ---
 Route::get('/kategori', [KategoriController::class, 'index']); // Ambil semua kategori
 Route::get('/kategori/{id}/resep', [KategoriController::class, 'resepByKategori']); // Ambil resep khusus kategori tertentu
 
+Route::post('/favorit/toggle', [FavoritController::class, 'toggleFavorit']);

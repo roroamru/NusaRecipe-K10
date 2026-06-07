@@ -8,7 +8,6 @@
 
 <div class="container py-2">
 
-    <!-- HEADER -->
     <div style="
         background:#ead28f;
         border-radius:25px;
@@ -29,7 +28,6 @@
     </div>
 
 
-    <!-- SUB KATEGORI -->
     @if($jenis == 'makanan')
 
     <h5 class="fw-semibold mb-3">
@@ -83,57 +81,44 @@
     @endif
 
 
-    <!-- REKOMENDASI -->
     <h5 class="fw-semibold mb-4">
         Rekomendasi Resep
     </h5>
 
     <div class="row g-4">
 
-        @foreach($reseps as $index => $resep)
-
-        @if(strtolower($resep['kategori']) == strtolower($jenis))
+        @foreach($reseps as $resep)
 
         <div class="col-12 col-md-6 col-lg-4 resep-item"
-            data-sub="{{ strtolower($resep['subkategori'] ?? '') }}">
+            data-sub="all">
 
             <div class="card-resep position-relative h-100">
 
-                <a href="{{ route('detail', $index) }}"
+                <a href="/detail/{{ $resep->id_resep }}"
                     class="text-decoration-none text-dark d-flex align-items-center gap-3 h-100">
 
-                    <!-- GAMBAR -->
-                    <img src="{{ asset('image/' . $resep['gambar']) }}"
+                    <img src="{{ asset('image/' . $resep->gambar) }}"
                         class="gambar-resep">
 
-                    <!-- INFO -->
                     <div class="flex-grow-1">
 
                         <div class="judul-resep">
-                            {{ $resep['nama'] }}
+                            {{ $resep->nama_resep }}
                         </div>
-
-                        @if(!empty($resep['subkategori']))
-                        <span class="badge rounded-pill mt-2 px-3 py-2">
-                            {{ ucfirst($resep['subkategori']) }}
-                        </span>
-                        @endif
 
                     </div>
 
                 </a>
 
-                <!-- BOOKMARK -->
                 <i class="bi bi-bookmark bookmark-icon"
-                    data-nama="{{ $resep['nama'] }}"
-                    onclick="toggleFavorite(event, '{{ $resep['nama'] }}', this)">
+                    data-nama="{{ $resep->nama_resep }}"
+                    onclick="toggleFavorite(event, '{{ $resep->nama_resep }}', this)">
                 </i>
 
             </div>
 
         </div>
 
-        @endif
         @endforeach
 
     </div>
@@ -199,12 +184,7 @@
     line-height:1.4;
 }
 
-/* SUB CATEGORY BADGE */
-.badge{
-    background:#ffe4b5;
-    color:#7a4d00;
-    font-weight:500;
-}
+/* SUB CATEGORY BADGE (Dihapus sementara agar tidak error) */
 
 /* BOOKMARK */
 .bookmark-icon{

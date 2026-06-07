@@ -148,7 +148,7 @@ function toggleFavorite(event, nama, el) {
 
     // BELUM LOGIN
     if (!user) {
-        alert("Silakan login dulu");
+        alert("Silakan login dulu untuk menyimpan resep favorit!");
         window.location.href = "/login";
         return;
     }
@@ -179,7 +179,7 @@ function toggleFavorite(event, nama, el) {
     // ==========================================
     // KIRIM DATA KE DATABASE (API BACKEND)
     // ==========================================
-    fetch('/api/favorit', {
+    fetch('/api/favorit/toggle', { // <-- INI ALAMAT YANG DIBENARKAN
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -194,6 +194,9 @@ function toggleFavorite(event, nama, el) {
     .then(response => response.json())
     .then(hasil => {
         console.log("Balasan dari database:", hasil);
+        if (!hasil.success) {
+            alert("Oops: " + hasil.message);
+        }
     })
     .catch(error => {
         console.error('Database belum siap menerima:', error);

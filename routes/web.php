@@ -242,18 +242,41 @@ $reseps = [
 
 
 /* HOME */
-Route::get('/', function () use ($reseps) {
-    return view('pages.home', compact('reseps'));
+Route::get('/', function () {
+    // Ambil data langsung dari tabel resep di database
+    $resepAsli = DB::table('resep')->get();
+    
+    return view('pages.home', ['reseps' => $resepAsli]);
 });
 
 /* DETAIL */
-Route::get('/detail/{id}', function ($id) use ($reseps) {
-    if (!isset($reseps[$id])) {
-        abort(404);
+Route::get('/detail/{id}', function ($id) {
+    // Ambil 1 resep dari database berdasarkan id_resep
+    $resepAsli = DB::table('resep')->where('id_resep', $id)->first();
+    
+    if (!$resepAsli) {
+        abort(404); // Kalau resep nggak ketemu
     }
-    $resep = $reseps[$id];
-    return view('pages.detail', compact('resep'));
+    
+    return view('pages.detail', ['resep' => $resepAsli]);
 })->name('detail');
+
+
+/* KATEGORI */
+Route::get('/kategori/{jenis}', function ($jenis) {
+    // 1. Kita cari dulu ID kategorinya (Makanan=1, Minuman=2, Cemilan=3)
+    $id_kategori = 1; 
+    if ($jenis == 'minuman') $id_kategori = 2;
+    if ($jenis == 'cemilan') $id_kategori = 3;
+
+    // 2. Ambil resep dari database yang sesuai dengan ID Kategori tersebut
+    $resepKategori = DB::table('resep')->where('id_kategori', $id_kategori)->get();
+
+    return view('pages.kategori', [
+        'jenis' => $jenis,
+        'reseps' => $resepKategori
+    ]);
+});
 
 
 /* SEARCH */
@@ -279,8 +302,11 @@ Route::get('/search', function (Request $request) use ($reseps) {
 });
 
 /* Favorite */
-Route::get('/favorit', function () use ($reseps) {
-    return view('pages.favorit', compact('reseps'));
+Route::get('/favorit', function () {
+    // Ambil data langsung dari tabel resep di database
+    $resepAsli = DB::table('resep')->get();
+    
+    return view('pages.favorit', ['reseps' => $resepAsli]);
 });
 
 /* Login */
@@ -296,16 +322,6 @@ Route::get('/register', function () {
 /* AKUN */
 Route::get('/akun', function () {
     return view('pages.akun');
-});
-
-/* KATEGORI */
-Route::get('/kategori/{jenis}', function ($jenis) use ($reseps) {
-
-    return view('pages.kategori', [
-        'jenis' => $jenis,
-        'reseps' => $reseps
-    ]);
-
 });
 
 // DASHBOARD ADMIN

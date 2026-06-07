@@ -33,7 +33,7 @@ class FavoritController extends Controller
             ]);
         }
 
-        $userId = $user->id; // ID milik user
+        $userId = $user->id_user; // ID milik user
         $resepId = $resep->id_resep; // ID milik resep (berdasarkan fotomu sebelumnya)
 
         // 3. Proses Simpan / Hapus ke tabel favorit pakai angka ID
