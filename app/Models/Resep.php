@@ -12,6 +12,9 @@ class Resep extends Model
     protected $table = 'resep';
     protected $primaryKey = 'id_resep';
 
+    // TAMBAHKAN BARIS INI BIAR NGGAK ERROR TIMESTAMPS
+    public $timestamps = false; 
+
     protected $fillable = [
         'nama_resep',
         'bahan',
@@ -21,13 +24,13 @@ class Resep extends Model
         'id_kategori',
     ];
 
-    // Relasi: Resep dimiliki oleh satu Kategori [cite: 184]
+    // Relasi: Resep dimiliki oleh satu Kategori
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
 
-    // Relasi: Resep ada di banyak daftar Favorit [cite: 188]
+    // Relasi: Resep ada di banyak daftar Favorit
     public function favorit()
     {
         return $this->hasMany(Favorit::class, 'resep_id', 'id_resep');

@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FavoritController; 
 use App\Http\Controllers\Api\KategoriController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +24,8 @@ Route::post('/login', [AuthController::class, 'login']);
 // --- URL UNTUK RESEP ---
 Route::get('/resep', [ResepController::class, 'index']);
 Route::get('/resep/{id}', [ResepController::class, 'show']);
+// Rute untuk menerima data resep baru
+Route::post('/resep/tambah', [ResepController::class, 'store']);
 
 // --- URL UNTUK FAVORIT ---
 Route::post('/favorit', [FavoritController::class, 'toggleFavorit']); // Tambahkan baris ini
@@ -32,3 +33,4 @@ Route::post('/favorit', [FavoritController::class, 'toggleFavorit']); // Tambahk
 // --- URL UNTUK KATEGORI ---
 Route::get('/kategori', [KategoriController::class, 'index']); // Ambil semua kategori
 Route::get('/kategori/{id}/resep', [KategoriController::class, 'resepByKategori']); // Ambil resep khusus kategori tertentu
+
