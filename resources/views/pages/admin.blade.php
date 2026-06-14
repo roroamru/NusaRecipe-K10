@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Resep</title>
 
+    <script>
+        let user = JSON.parse(localStorage.getItem("currentUser"));
+        
+        if (!user || user.role !== 'admin') {
+            alert("Akses Ditolak! Anda bukan Admin.");
+            window.location.href = "/";
+        }
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 </head>
@@ -91,55 +100,33 @@
             </thead>
 
             <tbody>
-
                 @foreach($reseps as $index => $resep)
-
                 <tr>
-
                     <td>
                         {{ $index + 1 }}
                     </td>
-
                     <td>
-                        {{ $resep['nama'] }}
+                        {{ $resep->nama_resep }}
                     </td>
-
                     <td>
-                        {{ ucfirst($resep['kategori']) }}
+                        {{ $resep->nama_kategori ?? 'Belum ada' }}
                     </td>
-
                     <td>
-                        {{ $resep['subkategori'] ?? '-' }}
+                        -
                     </td>
-
                     <td>
-
-                        <a href="/admin/edit/{{ $index }}"
-                            style="
-                                color:red;
-                                text-decoration:none;
-                                font-weight:500;
-                            ">
+                        <a href="/admin/edit/{{ $resep->id_resep }}"
+                            style="color:red; text-decoration:none; font-weight:500;">
                             EDIT
                         </a>
-
-                        |
-
-                        <a href="#"
-                            style="
-                                color:blue;
-                                text-decoration:none;
-                                font-weight:500;
-                            ">
+            |
+                        <a href="/admin/hapus/{{ $resep->id_resep }}"
+                            style="color:blue; text-decoration:none; font-weight:500;">
                             HAPUS
                         </a>
-
                     </td>
-
                 </tr>
-
                 @endforeach
-
             </tbody>
 
         </table>

@@ -98,27 +98,48 @@
 
 <script>
 function handleRegister(e) {
+    // Mencegah halaman reload saat tombol ditekan
+    e.preventDefault();
+
+    // 1. Ambil data dari kotak isian (form)
     e.preventDefault();
 
     let nama = document.getElementById("nama").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    // 2. Tentukan alamat API Register yang kamu buat semalam
+    let apiURL = '/api/register'; // Pakai jalur relatif agar aman
 
-    let exist = users.find(u => u.email === email);
-    if (exist) {
-        alert("Email sudah terdaftar!");
-        return;
-    }
-
-    let userBaru = { nama, email, password };
-    users.push(userBaru);
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Register berhasil!");
-    window.location.href = "/login";
+    // 3. Tembak data ke API menggunakan fungsi Fetch (seperti Postman)
+    fetch(apiURL, {
+        method: 'POST', // Karena mau mengirim data
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' // Penting untuk API Laravel
+        },
+        body: JSON.stringify({
+            nama: nama,
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json()) // Baca balasan dari API
+    .then(hasil => {
+        // Cek apakah API bilang sukses
+        if (hasil.success === true) {
+            alert("Hore! " + hasil.message); 
+            // Jika berhasil, langsung arahkan ke halaman login
+            window.location.href = "/login";
+        } else {
+            // Jika gagal (misal email sudah dipakai)
+            alert("Gagal: " + (hasil.message || "Email mungkin sudah terdaftar"));
+        }
+    })
+    .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+        alert("Server sedang bermasalah, coba lagi nanti.");
+    });
 }
 </script>
 

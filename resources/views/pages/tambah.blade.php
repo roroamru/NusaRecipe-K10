@@ -20,304 +20,167 @@
     background:#f5e3a2;
     padding:15px 40px;
 ">
-
     <div class="d-flex justify-content-between align-items-center">
-
-        <!-- KIRI -->
         <div class="d-flex align-items-center gap-3">
-
-            <img src="{{ asset('image/logo.png') }}"
-                style="width:60px;">
-
-            <h1 style="
-                font-family:serif;
-                font-size:42px;
-                font-weight:bold;
-                margin:0;
-            ">
+            <img src="{{ asset('image/logo.png') }}" style="width:60px;">
+            <h1 style="font-family:serif; font-size:42px; font-weight:bold; margin:0;">
                 Tambah Resep
             </h1>
-
         </div>
 
-        <!-- KANAN -->
         <div class="d-flex align-items-center gap-3">
-
-            <h2 style="
-                color:orange;
-                font-style:italic;
-                font-weight:bold;
-                margin:0;
-            ">
+            <h2 style="color:orange; font-style:italic; font-weight:bold; margin:0;">
                 Dashboard Admin
             </h2>
-
             <img src="{{ asset('image/profile.png') }}"
-                style="
-                    width:60px;
-                    height:60px;
-                    border-radius:50%;
-                    object-fit:cover;
-                ">
+                style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
         </div>
-
     </div>
-
 </div>
 
-<!-- CONTENT -->
 <div class="container py-5">
-
     <div class="row justify-content-center g-4">
 
-        <!-- GAMBAR -->
         <div class="col-md-3">
-
-            <h2 class="text-center mb-3"
-                style="
-                    font-family:serif;
-                    font-size:34px;
-                ">
+            <h2 class="text-center mb-3" style="font-family:serif; font-size:34px;">
                 Gambar Resep
             </h2>
-
-            <div style="
-                background:#f5e3a2;
-                border-radius:20px;
-                padding:25px;
-                text-align:center;
-                height:360px;
-            ">
-
-                <!-- Preview gambar -->
-                <img id="preview"
-                    src="{{ asset('image/default-image.png') }}"
-                    style="
-                        width:220px;
-                        height:180px;
-                        object-fit:cover;
-                    ">
-
+            <div style="background:#f5e3a2; border-radius:20px; padding:25px; text-align:center; height:360px;">
+                <img id="preview" src="{{ asset('image/default-image.png') }}"
+                    style="width:220px; height:180px; object-fit:cover;">
                 <br><br>
-
-                <input type="file"
-                    id="gambar"
-                    class="form-control"
-                    accept="image/*"
-                    onchange="previewImage(event)">
-
-                <p class="mt-3"
-                    style="font-size:18px;">
-                    Upload Gambar Resep
-                </p>
-
+                <input type="file" id="gambar" class="form-control" accept="image/*" onchange="previewImage(event)">
+                <p class="mt-3" style="font-size:18px;">Upload Gambar Resep</p>
             </div>
-
         </div>
 
-        <!-- INFORMASI -->
         <div class="col-md-3">
-
-            <div style="
-                background:#b8f04b;
-                border-radius:30px;
-                padding:30px;
-                height:430px;
-            ">
-
-                <h1 class="text-center mb-4"
-                    style="
-                        font-family:serif;
-                        font-size:34px;
-                    ">
+            <div style="background:#b8f04b; border-radius:30px; padding:30px; height:430px;">
+                <h1 class="text-center mb-4" style="font-family:serif; font-size:34px;">
                     Informasi Resep
                 </h1>
 
                 <label>Nama Resep</label>
-
-                <input type="text"
-                    class="form-control mb-3"
-                    style="
-                        border-radius:10px;
-                        height:50px;
-                    ">
+                <input type="text" id="nama_resep" class="form-control mb-3"
+                    style="border-radius:10px; height:50px;">
 
                 <label>Kategori</label>
-
-                <select id="kategori"
-                    class="form-select mb-3"
-                    onchange="ubahSubKategori()"
-                    style="
-                        border-radius:10px;
-                        height:50px;
-                    ">
-
-                    <option value="">
-                        Pilih Kategori
-                    </option>
-
-                    <option value="makanan">
-                        Makanan
-                    </option>
-
-                    <option value="minuman">
-                        Minuman
-                    </option>
-
-                    <option value="cemilan">
-                        Cemilan
-                    </option>
-
+                <select id="kategori" class="form-select mb-3" onchange="ubahSubKategori()"
+                    style="border-radius:10px; height:50px;">
+                    <option value="">Pilih Kategori</option>
+                    <option value="1">Makanan</option>
+                    <option value="2">Minuman</option>
+                    <option value="3">Cemilan</option>
                 </select>
 
                 <label>Sub Kategori</label>
-
-                <select id="subkategori"
-                    class="form-select"
-                    style="
-                        border-radius:10px;
-                        height:50px;
-                    ">
-
-                    <option>
-                        Pilih Sub Kategori
-                    </option>
-
+                <select id="subkategori" class="form-select"
+                    style="border-radius:10px; height:50px;">
+                    <option>Pilih Sub Kategori</option>
                 </select>
-
             </div>
-
         </div>
 
-        <!-- BAHAN -->
         <div class="col-md-3">
-
-            <div style="
-                background:#b8f04b;
-                border-radius:30px;
-                padding:30px;
-                height:430px;
-            ">
-
-                <h2 class="text-center mb-3"
-                    style="
-                        font-family:serif;
-                        font-size:30px;
-                    ">
+            <div style="background:#b8f04b; border-radius:30px; padding:30px; height:430px;">
+                <h2 class="text-center mb-3" style="font-family:serif; font-size:30px;">
                     Bahan - Bahan
                 </h2>
+                <textarea id="bahan" class="form-control mb-3" rows="5"
+                    style="border:2px solid black; resize:none; height:110px;"></textarea>
 
-                <textarea
-                    class="form-control mb-3"
-                    rows="5"
-                    style="
-                        border:2px solid black;
-                        resize:none;
-                        height:110px;
-                    "></textarea>
-
-                <h2 class="text-center mb-3"
-                    style="
-                        font-family:serif;
-                        font-size:30px;
-                    ">
+                <h2 class="text-center mb-3" style="font-family:serif; font-size:30px;">
                     Langkah - Langkah
                 </h2>
-
-                <textarea
-                    class="form-control"
-                    rows="5"
-                    style="
-                        border:2px solid black;
-                        resize:none;
-                        height:110px;
-                    "></textarea>
-
+                <textarea id="langkah" class="form-control" rows="5"
+                    style="border:2px solid black; resize:none; height:110px;"></textarea>
             </div>
-
         </div>
 
     </div>
 
-    <!-- BUTTON -->
     <div class="text-center mt-5">
-
-        <a href="/admin"
-            class="btn me-3"
-            style="
-                background:#f5e3a2;
-                border-radius:40px;
-                padding:12px 50px;
-                font-size:24px;
-                width:170px;
-            ">
+        <a href="/admin" class="btn me-3"
+            style="background:#f5e3a2; border-radius:40px; padding:12px 50px; font-size:24px; width:170px;">
             Batal
         </a>
 
-        <button class="btn"
-            style="
-                background:#f5e3a2;
-                border-radius:40px;
-                padding:12px 50px;
-                font-size:24px;
-                width:170px;
-            ">
+        <button onclick="simpanResep()" class="btn"
+            style="background:#f5e3a2; border-radius:40px; padding:12px 50px; font-size:24px; width:170px;">
             Simpan
         </button>
-
     </div>
-
 </div>
 
 <script>
-
 // preview gambar
 function previewImage(event) {
-
-    const image =
-        document.getElementById('preview');
-
-    image.src =
-        URL.createObjectURL(
-            event.target.files[0]
-        );
+    const image = document.getElementById('preview');
+    image.src = URL.createObjectURL(event.target.files[0]);
 }
 
 // sub kategori otomatis
 function ubahSubKategori() {
-
-    const kategori =
-        document.getElementById('kategori').value;
-
-    const sub =
-        document.getElementById('subkategori');
+    // Kita ambil text dari opsi yang dipilih, bukan angkanya (value)
+    const sel = document.getElementById('kategori');
+    const kategori = sel.options[sel.selectedIndex].text;
+    const sub = document.getElementById('subkategori');
 
     sub.innerHTML = '';
-
-    if(kategori === 'makanan') {
-
-        sub.innerHTML = `
-            <option>Kuah</option>
-            <option>Tidak Kuah</option>
-        `;
-    }
-
-    else if(kategori === 'minuman') {
-
-        sub.innerHTML = `
-            <option>Dingin</option>
-            <option>Hangat</option>
-        `;
-    }
-
-    else if(kategori === 'cemilan') {
-
-        sub.innerHTML = `
-            <option>Tidak Ada</option>
-        `;
+    if(kategori === 'Makanan') {
+        sub.innerHTML = `<option>Kuah</option><option>Tidak Kuah</option>`;
+    } else if(kategori === 'Minuman') {
+        sub.innerHTML = `<option>Dingin</option><option>Hangat</option>`;
+    } else if(kategori === 'Cemilan') {
+        sub.innerHTML = `<option>Tidak Ada</option>`;
     }
 }
 
+// MESIN PENYIMPAN RESEP
+function simpanResep() {
+    let nama = document.getElementById("nama_resep").value;
+    let kategori = document.getElementById("kategori").value;
+    let bahan = document.getElementById("bahan").value;
+    let langkah = document.getElementById("langkah").value;
+    let gambar = document.getElementById("gambar").files[0];
+
+    // Validasi kalau ada yang kosong
+    if (!nama || !kategori || !bahan || !langkah) {
+        alert("Tolong isi semua data resepnya ya!");
+        return;
+    }
+
+    // Bungkus semua data pakai FormData (khusus form yang ada upload filenya)
+    let formData = new FormData();
+    formData.append("nama_resep", nama);
+    formData.append("id_kategori", kategori);
+    formData.append("bahan", bahan);
+    formData.append("langkah_masak", langkah);
+    
+    // Kalau ada gambar yang diupload, masukkan juga
+    if (gambar) {
+        formData.append("gambar", gambar);
+    }
+
+    // Tembak ke API backend
+    fetch('/api/resep/tambah', {
+        method: 'POST',
+        body: formData // Kalau pakai FormData, JANGAN pakai headers Content-Type
+    })
+    .then(response => response.json())
+    .then(hasil => {
+        if(hasil.success) {
+            alert("Mantap! Resep berhasil disimpan ke database!");
+            window.location.href = "/admin"; // Balik ke halaman tabel admin
+        } else {
+            alert("Gagal menyimpan resep: " + hasil.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Waduh, servernya lagi ngambek. Cek console ya.");
+    });
+}
 </script>
 
 </body>

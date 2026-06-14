@@ -126,22 +126,13 @@
     </style>
 </head>
 
-<body style="
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-">
+<body>
 
 @include('layouts.navbar')
 
-<!-- CONTENT -->
-<main style="flex:1;">
-
-    <div class="container mt-4">
-        @yield('content')
-    </div>
-
-</main>
+<div class="container mt-4">
+    @yield('content')
+</div>
 
 @include('layouts.footer')
 
@@ -157,34 +148,59 @@ function toggleFavorite(event, nama, el) {
 
     // BELUM LOGIN
     if (!user) {
-        alert("Silakan login dulu");
+        alert("Silakan login dulu untuk menyimpan resep favorit!");
         window.location.href = "/login";
         return;
     }
 
     let key = "favorit_" + user.email;
-
     let fav = JSON.parse(localStorage.getItem(key)) || [];
+    
+    // Bikin variabel penanda untuk dikirim ke database
+    let aksi = ""; 
 
     if (fav.includes(nama)) {
-
-        // HAPUS
+        // HAPUS DARI BROWSER
         fav = fav.filter(f => f !== nama);
-
         el.classList.remove("bi-bookmark-fill");
         el.classList.add("bi-bookmark");
-
+        aksi = "hapus"; // Penanda hapus
     } else {
-
-        // TAMBAH
+        // TAMBAH KE BROWSER
         fav.push(nama);
-
         el.classList.remove("bi-bookmark");
         el.classList.add("bi-bookmark-fill");
+        aksi = "tambah"; // Penanda tambah
     }
 
-    // simpan kembali
+    // simpan kembali ke browser (biar warnanya langsung berubah)
     localStorage.setItem(key, JSON.stringify(fav));
+
+    // ==========================================
+    // KIRIM DATA KE DATABASE (API BACKEND)
+    // ==========================================
+    fetch('/api/favorit/toggle', { // <-- INI ALAMAT YANG DIBENARKAN
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: user.email,       // Siapa yang nyimpen
+            nama_resep: nama,        // Resep apa yang disimpan
+            action: aksi             // Mau ditambah atau dihapus
+        })
+    })
+    .then(response => response.json())
+    .then(hasil => {
+        console.log("Balasan dari database:", hasil);
+        if (!hasil.success) {
+            alert("Oops: " + hasil.message);
+        }
+    })
+    .catch(error => {
+        console.error('Database belum siap menerima:', error);
+    });
 }
 
 

@@ -94,17 +94,47 @@ function login() {
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let apiURL = '/api/login';
 
-    let user = users.find(u => u.email === email && u.password === password);
+    fetch(apiURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(hasil => {
+        if (hasil.success === true || hasil.message === "Login berhasil") {
+            
+            // 1. Simpan data user ke memori
+            let dataSistem = hasil.data ? hasil.data : { email: email };
+            localStorage.setItem("currentUser", JSON.stringify(dataSistem));
+            
+            // 2. Simpan tiket
+            localStorage.setItem("token_nusarecipe", "SUDAH_LOGIN");
 
-    if (user) {
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        alert("Login berhasil!");
-        window.location.href = "/";
-    } else {
-        alert("Email atau password salah!");
-    }
+            alert("Hore! Login berhasil!");
+
+            // 3. PENGALIHAN OTOMATIS (Cek Role Admin)
+            if (dataSistem.role === 'admin') {
+                window.location.href = "/admin"; // Terbangkan ke Dashboard Admin
+            } else {
+                window.location.href = "/"; // Terbangkan ke Home biasa
+            }
+            
+        } else {
+            alert("Gagal: " + (hasil.message || "Email atau password salah!"));
+        }
+    })
+    .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+        alert("Server sedang bermasalah, coba lagi nanti.");
+    });
 }
 </script>
 

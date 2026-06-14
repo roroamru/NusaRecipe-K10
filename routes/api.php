@@ -3,17 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ResepController;
-use App\Http\Controllers\Api\AuthController; // Tambahan untuk memanggil AuthController
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FavoritController;
+use App\Http\Controllers\Api\KategoriController;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -25,8 +22,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 // --- URL UNTUK RESEP ---
-// URL untuk mengambil daftar resep (List)
 Route::get('/resep', [ResepController::class, 'index']);
-
-// URL untuk mengambil detail satu resep (Detail)
 Route::get('/resep/{id}', [ResepController::class, 'show']);
+// Rute untuk menerima data resep baru
+Route::post('/resep/tambah', [ResepController::class, 'store']);
+
+// --- URL UNTUK KATEGORI ---
+Route::get('/kategori', [KategoriController::class, 'index']); // Ambil semua kategori
+Route::get('/kategori/{id}/resep', [KategoriController::class, 'resepByKategori']); // Ambil resep khusus kategori tertentu
+
+Route::post('/favorit/toggle', [FavoritController::class, 'toggleFavorit']);

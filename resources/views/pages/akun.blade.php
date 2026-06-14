@@ -68,6 +68,9 @@
 
                     </div>
 
+                    <div class="col-md-8">
+
+                        <h2 id="namaUser" style="
                     <!-- DATA USER -->
                     <div class="col-md-8">
 
@@ -96,12 +99,15 @@
                                 Favorit Saya
                             </a>
 
+                            <a href="/login" id="btnLogin"
                             <!-- LOGIN -->
                             <a href="/login"
                                 class="btn akun-btn">
                                 Login
                             </a>
 
+                            <button onclick="logout()" id="btnLogout"
+                                class="btn akun-btn" style="display: none;">
                             <!-- LOGOUT -->
                             <button onclick="logout()"
                                 class="btn akun-btn">
@@ -170,13 +176,42 @@ function previewImage(event) {
 }
 
 
-// LOAD FOTO SAAT REFRESH
+// LOAD FOTO DAN DATA USER SAAT REFRESH
 document.addEventListener("DOMContentLoaded", function () {
 
+    // 1. Load Foto
     let foto = localStorage.getItem("fotoProfil");
-
     if (foto) {
         document.getElementById("previewFoto").src = foto;
+    }
+
+    // 2. Load Data User dari Login
+    let userStr = localStorage.getItem("currentUser");
+    
+    let btnLogin = document.getElementById("btnLogin");
+    let btnLogout = document.getElementById("btnLogout");
+    let namaUser = document.getElementById("namaUser");
+    let emailUser = document.getElementById("emailUser");
+
+    if (userStr) {
+        // Kalau sudah login, ambil datanya
+        let user = JSON.parse(userStr);
+        
+        // Coba ambil nama (kalau di databasemu ada kolom nama). 
+        // Kalau belum ada, kita pakai potongan email depan aja sementara.
+        let nama = user.name || user.nama || user.email.split('@')[0];
+
+        // Ganti teks di layar
+        namaUser.innerText = nama;
+        emailUser.innerText = user.email;
+
+        // Sembunyikan tombol login, tampilkan tombol logout
+        btnLogin.style.display = "none";
+        btnLogout.style.display = "block";
+    } else {
+        // Kalau belum login, biarkan default
+        btnLogin.style.display = "block";
+        btnLogout.style.display = "none";
     }
 
 });
@@ -184,9 +219,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // LOGOUT
 function logout() {
-
+    // Hapus sesi login
     localStorage.removeItem("currentUser");
-
+    localStorage.removeItem("token_nusarecipe");
+    
     alert("Logout berhasil!");
 
     window.location.href = "/";
