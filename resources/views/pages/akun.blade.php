@@ -4,6 +4,7 @@
 
 <div class="container py-4">
 
+    <!-- JUDUL -->
     <div style="
         background:#ead28f;
         border-radius:35px;
@@ -23,6 +24,7 @@
 
     </div>
 
+    <!-- CARD AKUN -->
     <div class="row justify-content-center">
 
         <div class="col-lg-8">
@@ -36,6 +38,7 @@
 
                 <div class="row align-items-center">
 
+                    <!-- FOTO PROFIL -->
                     <div class="col-md-4 text-center mb-4">
 
                         <img id="previewFoto"
@@ -49,6 +52,7 @@
                                 background:white;
                             ">
 
+                        <!-- UPLOAD FOTO -->
                         <div class="mt-3">
 
                             <input type="file"
@@ -67,35 +71,46 @@
                     <div class="col-md-8">
 
                         <h2 id="namaUser" style="
+                    <!-- DATA USER -->
+                    <div class="col-md-8">
+
+                        <h2 style="
                             font-weight:700;
                             color:#4b3300;
                             margin-bottom:10px;
                         ">
-                            Pengguna NusaRecipe
+                            {{ session('user_name') ?? 'Pengguna NusaRecipe' }}
                         </h2>
 
-                        <p id="emailUser" style="
+                        <p style="
                             font-size:18px;
                             color:#555;
                             margin-bottom:35px;
                         ">
-                            Tamu (Belum Login)
+                            {{ session('user_email') ?? 'email@gmail.com' }}
                         </p>
 
+                        <!-- BUTTON MENU -->
                         <div class="d-flex flex-column gap-3">
 
+                            <!-- FAVORIT -->
                             <a href="/favorit"
                                 class="btn akun-btn">
                                 Favorit Saya
                             </a>
 
                             <a href="/login" id="btnLogin"
+                            <!-- LOGIN -->
+                            <a href="/login"
                                 class="btn akun-btn">
                                 Login
                             </a>
 
                             <button onclick="logout()" id="btnLogout"
                                 class="btn akun-btn" style="display: none;">
+                            <!-- LOGOUT -->
+                            <button onclick="logout()"
+                                class="btn akun-btn">
                                 Logout
                             </button>
 

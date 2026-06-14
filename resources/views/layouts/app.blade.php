@@ -47,7 +47,7 @@
             padding: 10px 25px;
             font-weight: bold;
             border: 2px solid black;
-            
+
             /* tambahan hover */
             transition: all 0.25s ease;
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);

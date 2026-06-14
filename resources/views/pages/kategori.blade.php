@@ -8,6 +8,7 @@
 
 <div class="container py-2">
 
+    <!-- HEADER -->
     <div style="
         background:#ead28f;
         border-radius:25px;
@@ -28,6 +29,7 @@
     </div>
 
 
+    <!-- SUB KATEGORI -->
     @if($jenis == 'makanan')
 
     <h5 class="fw-semibold mb-3">
@@ -81,6 +83,7 @@
     @endif
 
 
+    <!-- REKOMENDASI -->
     <h5 class="fw-semibold mb-4">
         Rekomendasi Resep
     </h5>
@@ -119,6 +122,7 @@
 
         </div>
 
+        @endif
         @endforeach
 
     </div>
@@ -184,7 +188,12 @@
     line-height:1.4;
 }
 
-/* SUB CATEGORY BADGE (Dihapus sementara agar tidak error) */
+/* SUB CATEGORY BADGE */
+.badge{
+    background:#ffe4b5;
+    color:#7a4d00;
+    font-weight:500;
+}
 
 /* BOOKMARK */
 .bookmark-icon{

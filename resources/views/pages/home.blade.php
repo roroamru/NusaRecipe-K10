@@ -40,6 +40,7 @@
                 <img src="{{ asset('image/' . $resep->gambar) }}"
                      style="width:80px; height:80px; object-fit:cover; border-radius:10px;">
 
+                <!-- TEKS -->
                 <div class="resep-info">
                     <div class="resep-title" style="line-height:1.4;">
                         {{ $resep->nama_resep }}
